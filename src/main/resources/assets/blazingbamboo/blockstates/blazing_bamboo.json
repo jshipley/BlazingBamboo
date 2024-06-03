@@ -1,0 +1,58 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "blazingbamboo:block/bamboo1_blazing_age0"
+        },
+        {
+          "model": "blazingbamboo:block/bamboo2_blazing_age0"
+        },
+        {
+          "model": "blazingbamboo:block/bamboo3_blazing_age0"
+        },
+        {
+          "model": "blazingbamboo:block/bamboo4_blazing_age0"
+        }
+      ],
+      "when": {
+        "age": "0"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "blazingbamboo:block/bamboo1_blazing_age1"
+        },
+        {
+          "model": "blazingbamboo:block/bamboo2_blazing_age1"
+        },
+        {
+          "model": "blazingbamboo:block/bamboo3_blazing_age1"
+        },
+        {
+          "model": "blazingbamboo:block/bamboo4_blazing_age1"
+        }
+      ],
+      "when": {
+        "age": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "blazingbamboo:block/blazing_bamboo_small_leaves"
+      },
+      "when": {
+        "leaves": "small"
+      }
+    },
+    {
+      "apply": {
+        "model": "blazingbamboo:block/blazing_bamboo_large_leaves"
+      },
+      "when": {
+        "leaves": "large"
+      }
+    }
+  ]
+}

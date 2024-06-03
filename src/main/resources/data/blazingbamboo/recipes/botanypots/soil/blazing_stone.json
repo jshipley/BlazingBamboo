@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botanypots"
+    }
+  ],
+  "type": "botanypots:soil",
+  "input": {
+    "item": "blazingbamboo:blazing_stone"
+  },
+  "display": {
+    "block": "blazingbamboo:blazing_stone"
+  },
+  "categories": [
+    "blazing_stone"
+  ],
+  "growthModifier": 1
+}

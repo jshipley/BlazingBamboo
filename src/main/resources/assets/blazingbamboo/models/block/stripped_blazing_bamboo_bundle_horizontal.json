@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "blazingbamboo:block/stripped_blazing_bamboo_bundle_top",
+    "side": "blazingbamboo:block/stripped_blazing_bamboo_bundle"
+  }
+}

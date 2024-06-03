@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/custom_fence_post",
+  "textures": {
+    "particle": "blazingbamboo:block/blazing_bamboo_planks",
+    "texture": "blazingbamboo:block/blazing_bamboo_fence"
+  }
+}

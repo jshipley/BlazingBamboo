@@ -1,0 +1,25 @@
+{
+  "values": [
+    "blazingbamboo:blazing_bamboo",
+    "blazingbamboo:blazing_bamboo_bundle",
+    "blazingbamboo:stripped_blazing_bamboo_bundle",
+
+    "blazingbamboo:blazing_bamboo_planks",
+    "blazingbamboo:blazing_bamboo_mosaic",
+    "blazingbamboo:blazing_bamboo_stairs",
+    "blazingbamboo:blazing_bamboo_mosaic_stairs",
+    "blazingbamboo:blazing_bamboo_slab",
+    "blazingbamboo:blazing_bamboo_mosaic_slab",
+
+    "blazingbamboo:blazing_bamboo_button",
+    "blazingbamboo:blazing_bamboo_pressure_plate",
+    "blazingbamboo:blazing_bamboo_door",
+    "blazingbamboo:blazing_bamboo_fence",
+    "blazingbamboo:blazing_bamboo_fence_gate",
+    "blazingbamboo:blazing_bamboo_trapdoor",
+    "blazingbamboo:blazing_bamboo_sign",
+    "blazingbamboo:blazing_bamboo_wall_sign",
+    "blazingbamboo:blazing_bamboo_hanging_sign",
+    "blazingbamboo:blazing_bamboo_wall_hanging_sign"
+  ]
+}

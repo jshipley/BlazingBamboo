@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "blazingbamboo:item/blazing_bamboo_hanging_sign"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "values": [
+    "blazingbamboo:blazing_bamboo",
+    "blazingbamboo:blazing_bamboo_sapling",
+    "blazingbamboo:blazing_stone",
+
+    "minecraft:crimson_nylium",
+    "minecraft:warped_nylium",
+    "minecraft:soul_soil",
+    "minecraft:netherrack",
+    "minecraft:basalt",
+    "minecraft:blackstone",
+    "minecraft:soul_sand",
+
+    "minecraft:stone",
+    "minecraft:cobblestone",
+    "minecraft:diorite",
+    "minecraft:granite",
+    "minecraft:andesite",
+    "minecraft:tuff",
+    "minecraft:calcite",
+    "minecraft:deepslate",
+    "minecraft:cobbled_deepslate",
+    "minecraft:sandstone",
+    "minecraft:red_sandstone",
+    "minecraft:sand",
+    "minecraft:red_sand",
+    "minecraft:gravel",
+    "#minecraft:terracotta",
+
+    "minecraft:end_stone",
+
+    "minecraft:bedrock"
+  ]
+}

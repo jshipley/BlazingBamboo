@@ -1,0 +1,9 @@
+{
+  "type": "blazingbamboo:blazing_bamboo",
+  "config": {
+    "tries": 128,
+    "xz_spread": 7,
+    "y_spread": 3,
+    "feature": "blazingbamboo:blazing_bamboo_placed"
+  }
+}

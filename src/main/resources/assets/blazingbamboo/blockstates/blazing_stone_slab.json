@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "blazingbamboo:block/blazing_stone_slab"
+    },
+    "type=double": {
+      "model": "blazingbamboo:block/blazing_stone"
+    },
+    "type=top": {
+      "model": "blazingbamboo:block/blazing_stone_slab_top"
+    }
+  }
+}
