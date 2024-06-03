@@ -1,0 +1,45 @@
+{
+  "block.blazingbamboo.blazing_bamboo": "Blazing Bamboo",
+  "item.blazingbamboo.blazing_bamboo": "Blazing Bamboo",
+
+  "block.blazingbamboo.blazing_bamboo_bundle": "Block of Blazing Bamboo",
+  "item.blazingbamboo.blazing_bamboo_bundle": "Block of Blazing Bamboo",
+  "block.blazingbamboo.stripped_blazing_bamboo_bundle": "Stripped Block of Blazing Bamboo",
+
+  "block.blazingbamboo.blazing_bamboo_planks": "Blazing Bamboo Planks",
+  "block.blazingbamboo.blazing_bamboo_mosaic": "Blazing Bamboo Mosaic",
+  "block.blazingbamboo.blazing_bamboo_slab": "Blazing Bamboo Slab",
+  "block.blazingbamboo.blazing_bamboo_mosaic_slab": "Blazing Bamboo Mosaic Slab",
+  "block.blazingbamboo.blazing_bamboo_stairs": "Blazing Bamboo Stairs",
+  "block.blazingbamboo.blazing_bamboo_mosaic_stairs": "Blazing Bamboo Mosaic Stairs",
+  "block.blazingbamboo.blazing_bamboo_button": "Blazing Bamboo Button",
+  "block.blazingbamboo.blazing_bamboo_pressure_plate": "Blazing Bamboo Pressure Plate",
+  "block.blazingbamboo.blazing_bamboo_fence": "Blazing Bamboo Fence",
+  "block.blazingbamboo.blazing_bamboo_fence_gate": "Blazing Bamboo Fence Gate",
+  "block.blazingbamboo.blazing_bamboo_door": "Blazing Bamboo Door",
+  "block.blazingbamboo.blazing_bamboo_trapdoor": "Blazing Bamboo Trapdoor",
+  "block.blazingbamboo.blazing_bamboo_sign": "Blazing Bamboo Sign",
+  "block.blazingbamboo.blazing_bamboo_hanging_sign": "Blazing Bamboo Hanging Sign",
+
+  "item.blazingbamboo.blazing_bamboo_raft": "Blazing Bamboo Raft",
+  "item.blazingbamboo.blazing_bamboo_chest_raft": "Blazing Bamboo Raft with Chest",
+  "entity.blazingbamboo.bb_chest_raft": "Raft with Chest",
+  "entity.minecraft.bb_chest_raft": "Raft with Chest",
+
+  "block.blazingbamboo.blazing_stone": "Blazing Stone",
+  "block.blazingbamboo.blazing_stone_slab": "Blazing Stone Slab",
+  "block.blazingbamboo.blazing_stone_stairs": "Blazing Stone Stairs",
+  "block.blazingbamboo.blazing_stone_button": "Blazing Stone Button",
+  "block.blazingbamboo.blazing_stone_pressure_plate": "Blazing Stone Pressure Plate",
+
+  "block.blazingbamboo.blazing_bricks": "Blazing Bricks",
+  "block.blazingbamboo.blazing_brick_slab": "Blazing Brick Slab",
+  "block.blazingbamboo.blazing_brick_stairs": "Blazing Brick Stairs",
+  "block.blazingbamboo.blazing_brick_wall": "Blazing Brick Wall",
+  "block.blazingbamboo.blazing_bricks_chiseled": "Chiseled Blazing Bricks",
+
+  "death.attack.blazing": "%1$s touched the spicy grass",
+  "death.attack.blazing.player": "%1$s was chased into blazing bamboo by $2$s",
+
+  "creativetab.blazing_bamboo_tab": "Blazing Bamboo"
+}

@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "blazingbamboo",
+	"version": "${version}",
+	"name": "Blazing Bamboo",
+	"description": "A fiery bamboo species native to the crimson forests of the Nether!",
+	"authors": [
+		"PaddedShaman"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/PaddedShaman/BlazingBamboo"
+	},
+	"license": "MIT",
+	"icon": "assets/blazingbamboo/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.paddedshaman.blazingbamboo.BlazingBamboo"
+		],
+		"client": [
+			"net.paddedshaman.blazingbamboo.BlazingBambooClient"
+		]
+	},
+	"mixins": [
+		"blazingbamboo.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	},
+	"accessWidener" : "blazingbamboo.accesswidener"
+}

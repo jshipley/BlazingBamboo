@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "blazingbamboo:block/blazing_bricks_chiseled_top",
+    "side": "blazingbamboo:block/blazing_bricks_chiseled"
+  }
+}

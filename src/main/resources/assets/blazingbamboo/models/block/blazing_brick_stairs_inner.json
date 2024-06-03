@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "blazingbamboo:block/blazing_bricks",
+    "side": "blazingbamboo:block/blazing_bricks",
+    "top": "blazingbamboo:block/blazing_bricks"
+  }
+}

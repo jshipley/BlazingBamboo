@@ -1,0 +1,21 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "botanypots"
+      ]
+    }
+  ],
+  "type": "botanypots:soil",
+  "input": {
+    "item": "blazingbamboo:blazing_stone"
+  },
+  "display": {
+    "block": "blazingbamboo:blazing_stone"
+  },
+  "categories": [
+    "blazing_stone"
+  ],
+  "growthModifier": 1
+}

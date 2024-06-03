@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "blazingbamboo:blazing_bamboo_door",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "blazingbamboo:blazing_bamboo_door"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "blazingbamboo:blocks/blazing_bamboo_door"
+}
