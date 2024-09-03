@@ -27,7 +27,7 @@ public class BBItems {
             new BBRaftItem(true, Boat.Type.BAMBOO, new Item.Properties().fireResistant().stacksTo(1)));
 
     private static Item registerItem(String name, Item item) {
-        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(BlazingBamboo.MOD_ID, name), item);
+        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(BlazingBamboo.MOD_ID, name), item);
     }
     public static void registerItems() {}
 }

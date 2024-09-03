@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ],
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "blazingbamboo:stripped_blazing_bamboo_bundle"
+      }
+    },
+    {
+      "item": {
+        "id": "minecraft:blaze_powder"
+      }
+    }
+  ],
+  "sound": {
+    "sound_id": "minecraft:item.axe.strip"
+  },
+  "tool": {
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "axe_strip"
+  }
+}

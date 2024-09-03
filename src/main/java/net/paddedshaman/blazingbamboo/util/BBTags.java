@@ -11,7 +11,7 @@ public class BBTags {
         public static final TagKey<Block> BLAZING_BAMBOO_PLANTABLE_ON = tag("blazing_bamboo_plantable_on");
 
         private static TagKey<Block> tag(String name) {
-            return TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation(BlazingBamboo.MOD_ID, name));
+            return TagKey.create(BuiltInRegistries.BLOCK.key(), ResourceLocation.fromNamespaceAndPath(BlazingBamboo.MOD_ID, name));
         }
     }
 }

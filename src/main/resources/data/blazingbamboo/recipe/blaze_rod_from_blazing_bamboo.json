@@ -1,0 +1,17 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "B",
+    "B"
+  ],
+  "key": {
+    "B": {
+      "item": "blazingbamboo:blazing_bamboo_item",
+      "data": 0
+    }
+  },
+  "result": {
+    "id": "minecraft:blaze_rod",
+    "count": 1
+  }
+}

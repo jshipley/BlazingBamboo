@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "blazingbamboo:blazing_stone"
-  },
-  "result": "blazingbamboo:blazing_stone_slab"
-}

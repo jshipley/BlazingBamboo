@@ -11,7 +11,7 @@ import net.paddedshaman.blazingbamboo.block.BBBlocks;
 
 public class BBCreativeModeTabs {
     public static final CreativeModeTab BLAZING_BAMBOO = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
-            new ResourceLocation(BlazingBamboo.MOD_ID, "blazing_bamboo_tab"),
+            ResourceLocation.fromNamespaceAndPath(BlazingBamboo.MOD_ID, "blazing_bamboo_tab"),
             CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0).title(Component.translatable("creativetab.blazing_bamboo_tab"))
                     .icon(() -> new ItemStack(BBItems.BLAZING_BAMBOO_ITEM)).displayItems((itemDisplayParameters, output) -> {
 

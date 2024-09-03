@@ -47,9 +47,9 @@ public class BBRaftEntity extends Boat {
         this.entityData.set(DATA_ID_TYPE, pVariant.ordinal());
     }
 
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_ID_TYPE, Type.BAMBOO.ordinal());
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_ID_TYPE, Type.BAMBOO.ordinal());
     }
 
     @Override

@@ -41,9 +41,9 @@ public class BlazingBamboo implements ModInitializer {
 		StrippableBlockRegistry.register(BBBlocks.BLAZING_BAMBOO_BUNDLE, BBBlocks.STRIPPED_BLAZING_BAMBOO_BUNDLE);
 
 		// The entirety of worldgen
-		Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(MOD_ID, "blazing_bamboo"),
+		Registry.register(BuiltInRegistries.FEATURE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "blazing_bamboo"),
 				new BlazingBambooFeature(RandomPatchConfiguration.CODEC));
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.CRIMSON_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION,
-				ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(BlazingBamboo.MOD_ID, "blazing_bamboo_placed")));
+				ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(BlazingBamboo.MOD_ID, "blazing_bamboo_placed")));
 	}
 }
