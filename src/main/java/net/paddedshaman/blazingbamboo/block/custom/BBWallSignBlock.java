@@ -9,7 +9,7 @@ import net.paddedshaman.blazingbamboo.block.entity.BBSignBlockEntity;
 
 public class BBWallSignBlock extends WallSignBlock {
     public BBWallSignBlock(Properties pProperties, WoodType pType) {
-        super(pProperties, pType);
+        super(pType, pProperties);
     }
 
     @Override

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "blazingbamboo:blazing_stone"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "blazingbamboo:blazing_stone_pressure_plate"
+  }
+}

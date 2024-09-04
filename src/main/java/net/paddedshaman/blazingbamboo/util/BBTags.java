@@ -1,7 +1,7 @@
 package net.paddedshaman.blazingbamboo.util;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.paddedshaman.blazingbamboo.BlazingBamboo;
@@ -15,7 +15,7 @@ public class BBTags {
         public static final TagKey<Block> BLAZING_BAMBOO_INVASIVE_GROWTH = tag("blazing_bamboo_invasive_growth");
         public static final TagKey<Block> BLAZING_BAMBOO_INVASIVE_REPLACEABLES = tag("blazing_bamboo_invasive_replaceables");
         private static TagKey<Block> tag(String name) {
-            return BlockTags.create(new ResourceLocation(BlazingBamboo.MOD_ID, name));
+            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(BlazingBamboo.MOD_ID, name));
         }
     }
 }

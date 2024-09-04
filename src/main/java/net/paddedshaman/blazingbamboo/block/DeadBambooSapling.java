@@ -43,5 +43,5 @@ public class DeadBambooSapling extends BlazingBambooSapling {
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {}
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) { return false; }
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) { return false; }
 }

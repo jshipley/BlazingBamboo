@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "blazingbamboo:blazing_stone"
+    }
+  ],
+  "result": {
+    "id": "blazingbamboo:blazing_stone_button"
+  }
+}
