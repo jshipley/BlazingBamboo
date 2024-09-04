@@ -1,5 +1,6 @@
 package net.paddedshaman.blazingbamboo.worldgen;
 
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,6 +25,7 @@ public class BlazingBambooFeature extends Feature<RandomPatchConfiguration> {
         super(pCodec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<RandomPatchConfiguration> context) {
         RandomPatchConfiguration config = context.config();
         RandomSource randomOffset = context.random();

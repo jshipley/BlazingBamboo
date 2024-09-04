@@ -1,17 +1,20 @@
 package net.paddedshaman.blazingbamboo.event;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.paddedshaman.blazingbamboo.BlazingBamboo;
 import net.paddedshaman.blazingbamboo.block.BBBlocks;
 import net.paddedshaman.blazingbamboo.item.BBItems;
 
+@EventBusSubscriber(modid = BlazingBamboo.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class FurnaceFuelBurnTimeEventHandler {
     public static final FurnaceFuelBurnTimeEventHandler instance = new FurnaceFuelBurnTimeEventHandler();
     private FurnaceFuelBurnTimeEventHandler() {};
 
     @SubscribeEvent
-    public void onFurnaceFuelBurnTimeEvent(FurnaceFuelBurnTimeEvent event) {
+    public static void onFurnaceFuelBurnTimeEvent(FurnaceFuelBurnTimeEvent event) {
         ItemStack fuel = event.getItemStack();
         if (fuel.getItem() == BBItems.BLAZING_BAMBOO_ITEM.get()) { event.setBurnTime(800); }
         if (fuel.getItem() == BBItems.BLAZING_BAMBOO_BUNDLE.get()) { event.setBurnTime(8000); }

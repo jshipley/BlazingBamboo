@@ -4,17 +4,18 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import net.paddedshaman.blazingbamboo.BlazingBamboo;
 import net.paddedshaman.blazingbamboo.block.BBBlocks;
+
+import java.util.function.Supplier;
 
 public class BBCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BlazingBamboo.MOD_ID);
 
-    public static final RegistryObject<CreativeModeTab> BLAZING_BAMBOO_TAB = CREATIVE_MODE_TABS.register("blazing_bamboo_tab",
+    public static final Supplier<CreativeModeTab> BLAZING_BAMBOO_TAB = CREATIVE_MODE_TABS.register("blazing_bamboo_tab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(BBItems.BLAZING_BAMBOO_ITEM.get()))
                     .title(Component.translatable("creativetab.blazing_bamboo_tab"))
                     .displayItems((itemDisplayParameters, output) -> {

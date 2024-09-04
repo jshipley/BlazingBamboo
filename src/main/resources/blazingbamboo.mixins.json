@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "net.paddedshaman.blazingbamboo.mixin",
   "compatibilityLevel": "JAVA_21",
-  "refmap": "blazingbamboo.refmap.json",
   "mixins": [
     "EntityMixin"
   ],
