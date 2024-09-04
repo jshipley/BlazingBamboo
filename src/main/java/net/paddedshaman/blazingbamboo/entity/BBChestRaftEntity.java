@@ -44,13 +44,15 @@ public class BBChestRaftEntity extends ChestBoat {
         return BBItems.BLAZING_BAMBOO_CHEST_RAFT.get();
     }
 
+    @Override
     public void setVariant(Type pVariant) {
         this.entityData.set(DATA_ID_TYPE, pVariant.ordinal());
     }
 
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_ID_TYPE, Type.BAMBOO.ordinal());
+    @Override
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_ID_TYPE, Type.BAMBOO.ordinal());
     }
 
     @Override

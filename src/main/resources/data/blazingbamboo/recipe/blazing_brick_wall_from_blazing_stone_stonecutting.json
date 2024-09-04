@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "blazingbamboo:blazing_stone"
+  },
+  "result": {
+    "id": "blazingbamboo:blazing_brick_wall"
+  }
+}

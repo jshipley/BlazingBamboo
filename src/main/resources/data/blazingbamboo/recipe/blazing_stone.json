@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    },
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    },
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    },
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    },
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    },
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    },
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    },
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    },
+    {
+      "item": "blazingbamboo:blazing_bamboo_bundle"
+    }
+  ],
+  "result": {
+    "id": "blazingbamboo:blazing_stone"
+  }
+}
