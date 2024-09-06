@@ -21,7 +21,6 @@ import net.paddedshaman.blazingbamboo.item.BBItems;
 import org.jetbrains.annotations.NotNull;
 
 public class BBChestRaftEntity extends ChestBoat {
-    private static final EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(Boat.class, EntityDataSerializers.INT);
     public BBChestRaftEntity(EntityType<? extends ChestBoat> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -42,21 +41,6 @@ public class BBChestRaftEntity extends ChestBoat {
     @NotNull
     public Item getDropItem() {
         return BBItems.BLAZING_BAMBOO_CHEST_RAFT.get();
-    }
-
-    public void setVariant(Type pVariant) {
-        this.entityData.set(DATA_ID_TYPE, pVariant.ordinal());
-    }
-
-    public void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DATA_ID_TYPE, Type.BAMBOO.ordinal());
-    }
-
-    @Override
-    @NotNull
-    public Boat.Type getVariant() {
-        return Boat.Type.BAMBOO;
     }
 
     // Attempt to make it work on lava below this line ========================================================================================================
