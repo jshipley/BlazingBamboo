@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.paddedshaman.blazingbamboo.block.BBBlocks;
+import net.paddedshaman.blazingbamboo.block.BlazingBambooBlock;
 import net.paddedshaman.blazingbamboo.block.entity.BBBlockEntities;
 import net.paddedshaman.blazingbamboo.entity.BBEntities;
 import net.paddedshaman.blazingbamboo.item.BBCreativeModeTabs;
@@ -45,5 +47,14 @@ public class BlazingBamboo implements ModInitializer {
 				new BlazingBambooFeature(RandomPatchConfiguration.CODEC));
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.CRIMSON_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION,
 				ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(BlazingBamboo.MOD_ID, "blazing_bamboo_placed")));
+		
+		// Add Simple Copper Pipes compatibility if it is loaded
+		if (FabricLoader.getInstance().isModLoaded("copper_pipe")) {
+			net.lunade.copper.blocks.block_entity.leaking_pipes.LeakingPipeDrips.register(BBBlocks.BLAZING_BAMBOO, (lava, pLevel, pPos, pState) -> {
+				if (!lava && pState.getBlock() instanceof BlazingBambooBlock bambooBlock) {
+					bambooBlock.rainOnBamboo(pLevel, pPos);
+				}
+			});
+		}
 	}
 }
