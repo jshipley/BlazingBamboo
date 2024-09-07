@@ -140,6 +140,12 @@ public class BlazingBambooBlock extends BambooStalkBlock {
         }
     }
 
+    public void rainOnBamboo(Level pLevel, BlockPos headBlockPos) {
+        int i = this.getHeightBelowUpToMax(pLevel, headBlockPos) + 1;
+        BlockPos baseBlockPos = headBlockPos.below(i);
+        this.extinguishBamboo(pLevel, baseBlockPos);
+    }
+
     protected void extinguishBamboo(Level pLevel, BlockPos baseBlockPos) {
         BlockState deadStalk = BBBlocks.DEAD_BAMBOO.defaultBlockState();
         int height = getHeightAboveUpToMax(pLevel, baseBlockPos);
