@@ -1,15 +1,11 @@
 package net.paddedshaman.blazingbamboo.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -21,8 +17,7 @@ import net.paddedshaman.blazingbamboo.item.BBItems;
 import org.jetbrains.annotations.NotNull;
 
 public class BBChestRaftEntity extends ChestBoat {
-    private static final EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(Boat.class, EntityDataSerializers.INT);
-    public BBChestRaftEntity(EntityType<? extends ChestBoat> pEntityType, Level pLevel) {
+        public BBChestRaftEntity(EntityType<? extends ChestBoat> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
     public BBChestRaftEntity(Level pLevel, double pX, double pY, double pZ) {
@@ -42,21 +37,6 @@ public class BBChestRaftEntity extends ChestBoat {
     @NotNull
     public Item getDropItem() {
         return BBItems.BLAZING_BAMBOO_CHEST_RAFT;
-    }
-
-    public void setVariant(Type pVariant) {
-        this.entityData.set(DATA_ID_TYPE, pVariant.ordinal());
-    }
-
-    public void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DATA_ID_TYPE, Type.BAMBOO.ordinal());
-    }
-
-    @Override
-    @NotNull
-    public Boat.Type getVariant() {
-        return Boat.Type.BAMBOO;
     }
 
     // Attempt to make it work on lava below this line ========================================================================================================
