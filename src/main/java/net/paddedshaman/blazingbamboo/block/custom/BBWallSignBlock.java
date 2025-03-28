@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.paddedshaman.blazingbamboo.block.entity.BBSignBlockEntity;
 
 public class BBWallSignBlock extends WallSignBlock {
-    public BBWallSignBlock(Properties pProperties, WoodType pType) {
+    public BBWallSignBlock(WoodType pType, Properties pProperties) {
         super(pType, pProperties);
     }
 

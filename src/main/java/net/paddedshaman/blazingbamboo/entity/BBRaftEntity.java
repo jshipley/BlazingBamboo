@@ -1,45 +1,30 @@
 package net.paddedshaman.blazingbamboo.entity;
 
+import java.util.function.Supplier;
+
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.Raft;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.paddedshaman.blazingbamboo.item.BBItems;
-import org.jetbrains.annotations.NotNull;
 
-public class BBRaftEntity extends Boat {
-    public BBRaftEntity(EntityType<? extends Boat> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
-    }
-    public BBRaftEntity(Level level, double pX, double pY, double pZ) {
-        this(BBEntities.BB_RAFT, level);
-        this.setPos(pX, pY, pZ);
-        this.setDeltaMovement(Vec3.ZERO);
-        this.xo = pX;
-        this.yo = pY;
-        this.zo = pZ;
+public class BBRaftEntity extends Raft {
+
+    public BBRaftEntity(EntityType<? extends BBRaftEntity> entityType, Level level, Supplier<Item> supplier) {
+        super(entityType, level, supplier);
     }
 
-    public double getPassengersRidingOffset() {
-        return 0.25;
+    public BBRaftEntity(EntityType<? extends BBRaftEntity> entityType, Level level) {
+        super(entityType, level, () -> BBItems.BLAZING_BAMBOO_RAFT);
     }
-
-    @Override
-    @NotNull
-    public Item getDropItem() {
-        return BBItems.BLAZING_BAMBOO_RAFT;
-    }
-
-    // Attempt to make it work on lava below this line ========================================================================================================
 
     @Override
     public boolean fireImmune() {
@@ -47,148 +32,123 @@ public class BBRaftEntity extends Boat {
     }
 
     @Override
-    public float getWaterLevelAbove() {
-        AABB boundingBox = this.getBoundingBox();
-        int minX = Mth.floor(boundingBox.minX);
-        int maxX = Mth.ceil(boundingBox.maxX);
-        int maxY = Mth.floor(boundingBox.maxY);
-        int minY = Mth.ceil(boundingBox.maxY - this.lastYd);
-        int minZ = Mth.floor(boundingBox.minZ);
-        int maxZ = Mth.ceil(boundingBox.maxZ);
-        BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
+    public boolean isOnFire() {
+        return false;
+    }
 
-        for(int y = maxY; y < minY; ++y) {
+    // The following methods are copies of the methods from AbstractBoat, but use FluidTags.LAVA instead of FluidTags.WATER
+
+    @Override
+    public float getWaterLevelAbove() {
+        AABB aABB = this.getBoundingBox();
+        int i = Mth.floor(aABB.minX);
+        int j = Mth.ceil(aABB.maxX);
+        int k = Mth.floor(aABB.maxY);
+        int l = Mth.ceil(aABB.maxY - this.lastYd);
+        int m = Mth.floor(aABB.minZ);
+        int n = Mth.ceil(aABB.maxZ);
+        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+
+        label39: for (int o = k; o < l; ++o) {
             float f = 0.0F;
-            for(int x = minX; x < maxX; ++x) {
-                for(int z = minZ; z < maxZ; ++z) {
-                    blockPos.set(x, y, z);
-                    FluidState fluidstate = this.level().getFluidState(blockPos);
-                    if (fluidstate.is(FluidTags.LAVA)) {
-                        f = Math.max(f, fluidstate.getHeight(this.level(), blockPos));
+
+            for (int p = i; p < j; ++p) {
+                for (int q = m; q < n; ++q) {
+                    mutableBlockPos.set(p, o, q);
+                    FluidState fluidState = this.level().getFluidState(mutableBlockPos);
+                    if (fluidState.is(FluidTags.LAVA)) {
+                        f = Math.max(f, fluidState.getHeight(this.level(), mutableBlockPos));
+                    }
+
+                    if (f >= 1.0F) {
+                        continue label39;
                     }
                 }
             }
+
             if (f < 1.0F) {
-                return blockPos.getY() + f;
+                return (float) mutableBlockPos.getY() + f;
             }
         }
-        return minY + 1;
+
+        return (float) (l + 1);
     }
 
     @Override
     public boolean checkInWater() {
-        AABB aabb = this.getBoundingBox();
-        int i = Mth.floor(aabb.minX);
-        int j = Mth.ceil(aabb.maxX);
-        int k = Mth.floor(aabb.minY);
-        int l = Mth.ceil(aabb.minY + 0.001D);
-        int i1 = Mth.floor(aabb.minZ);
-        int j1 = Mth.ceil(aabb.maxZ);
-        boolean flag = false;
-        this.waterLevel = -Double.MAX_VALUE;
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        AABB aABB = this.getBoundingBox();
+        int i = Mth.floor(aABB.minX);
+        int j = Mth.ceil(aABB.maxX);
+        int k = Mth.floor(aABB.minY);
+        int l = Mth.ceil(aABB.minY + 0.001);
+        int m = Mth.floor(aABB.minZ);
+        int n = Mth.ceil(aABB.maxZ);
+        boolean bl = false;
+        this.waterLevel = -1.7976931348623157E308;
+        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
-        for(int k1 = i; k1 < j; ++k1) {
-            for(int l1 = k; l1 < l; ++l1) {
-                for(int i2 = i1; i2 < j1; ++i2) {
-                    blockpos$mutableblockpos.set(k1, l1, i2);
-                    FluidState fluidstate = this.level().getFluidState(blockpos$mutableblockpos);
-                    if (fluidstate.is(FluidTags.LAVA)) {
-                        float f = (float)l1 + fluidstate.getHeight(this.level(), blockpos$mutableblockpos);
-                        this.waterLevel = Math.max((double)f, this.waterLevel);
-                        flag |= aabb.minY < (double)f;
+        for (int o = i; o < j; ++o) {
+            for (int p = k; p < l; ++p) {
+                for (int q = m; q < n; ++q) {
+                    mutableBlockPos.set(o, p, q);
+                    FluidState fluidState = this.level().getFluidState(mutableBlockPos);
+                    if (fluidState.is(FluidTags.LAVA)) {
+                        float f = (float) p + fluidState.getHeight(this.level(), mutableBlockPos);
+                        this.waterLevel = Math.max((double) f, this.waterLevel);
+                        bl |= aABB.minY < (double) f;
                     }
                 }
             }
         }
-        return flag;
+
+        return bl;
     }
 
+    @Nullable
     @Override
     public Status isUnderwater() {
-        AABB aabb = this.getBoundingBox();
-        double d0 = aabb.maxY + 0.5D;
-        int i = Mth.floor(aabb.minX);
-        int j = Mth.ceil(aabb.maxX);
-        int k = Mth.floor(aabb.maxY);
-        int l = Mth.ceil(d0);
-        int i1 = Mth.floor(aabb.minZ);
-        int j1 = Mth.ceil(aabb.maxZ);
-        boolean flag = false;
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        AABB aABB = this.getBoundingBox();
+        double d = aABB.maxY + 0.001;
+        int i = Mth.floor(aABB.minX);
+        int j = Mth.ceil(aABB.maxX);
+        int k = Mth.floor(aABB.maxY);
+        int l = Mth.ceil(d);
+        int m = Mth.floor(aABB.minZ);
+        int n = Mth.ceil(aABB.maxZ);
+        boolean bl = false;
+        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
-        for(int k1 = i; k1 < j; ++k1) {
-            for(int l1 = k; l1 < l; ++l1) {
-                for(int i2 = i1; i2 < j1; ++i2) {
-                    blockpos$mutableblockpos.set(k1, l1, i2);
-                    FluidState fluidstate = this.level().getFluidState(blockpos$mutableblockpos);
-                    if (fluidstate.is(FluidTags.LAVA) && d0 < (double)((float)blockpos$mutableblockpos.getY() + fluidstate.getHeight(this.level(), blockpos$mutableblockpos))) {
-                        if (!fluidstate.isSource()) {
-                            return Status.UNDER_FLOWING_WATER;
+        for (int o = i; o < j; ++o) {
+            for (int p = k; p < l; ++p) {
+                for (int q = m; q < n; ++q) {
+                    mutableBlockPos.set(o, p, q);
+                    FluidState fluidState = this.level().getFluidState(mutableBlockPos);
+                    if (fluidState.is(FluidTags.LAVA) && d < (double) ((float) mutableBlockPos.getY()
+                            + fluidState.getHeight(this.level(), mutableBlockPos))) {
+                        if (!fluidState.isSource()) {
+                            return net.minecraft.world.entity.vehicle.AbstractBoat.Status.UNDER_FLOWING_WATER;
                         }
 
-                        flag = true;
+                        bl = true;
                     }
                 }
             }
         }
-        return flag ? Status.UNDER_WATER : null;
+
+        return bl ? net.minecraft.world.entity.vehicle.AbstractBoat.Status.UNDER_WATER : null;
     }
 
     @Override
-    public void checkFallDamage(double p_38307_, boolean p_38308_, BlockState p_38309_, BlockPos p_38310_) {
+    public void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
         this.lastYd = this.getDeltaMovement().y;
-    }
-
-    @Override
-    public boolean canAddPassenger(Entity entity) {
-        return this.getPassengers().size() < 2 && !this.isEyeInFluid(FluidTags.LAVA);
-    }
-
-
-    @Override
-    public void floatBoat() {
-        double d0 = (double)-0.03999999910593033F;
-        double d1 = this.isNoGravity() ? 0.0D : (double)-0.03999999910593033F;
-        double d2 = 0.0D;
-        this.invFriction = 0.05F;
-        if (this.oldStatus == Status.IN_AIR && this.status != Status.IN_AIR && this.status != Status.ON_LAND) {
-            this.waterLevel = this.getY(1.0D);
-            this.setPos(this.getX(), (double)(this.getWaterLevelAbove() - this.getBbHeight()) + 0.101D, this.getZ());
-            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D));
-            this.lastYd = 0.0D;
-            this.status = Status.IN_WATER;
-        } else {
-            if (this.status == Status.IN_WATER) {
-                d2 = (this.waterLevel - this.getY()) / (double)this.getBbHeight();
-                this.invFriction = 0.9F;
-            } else if (this.status == Status.UNDER_FLOWING_WATER) {
-                d1 = -7.0E-4D;
-                this.invFriction = 0.9F;
-            } else if (this.status == Status.UNDER_WATER) {
-                d2 = 0.01F;
-                this.invFriction = 0.45F;
-            } else if (this.status == Status.IN_AIR) {
-                this.invFriction = 0.9F;
-            } else if (this.status == Status.ON_LAND) {
-                this.invFriction = this.landFriction;
-                if (this.getControllingPassenger() instanceof Player) {
-                    this.landFriction /= 2.0F;
-                }
-            }
-
-            Vec3 vector3d = this.getDeltaMovement();
-            this.setDeltaMovement(vector3d.x * (double)this.invFriction, vector3d.y + d1, vector3d.z * (double)this.invFriction);
-            this.deltaRotation *= this.invFriction;
-            if (d2 > 0.0D) {
-                Vec3 vector3d1 = this.getDeltaMovement();
-                this.setDeltaMovement(vector3d1.x, (vector3d1.y + d2 * 0.06153846016296973D) * 0.75D, vector3d1.z);
+        if (!this.isPassenger()) {
+            if (onGround) {
+                this.resetFallDistance();
+            } else {
+                FluidState fluidState = this.level().getFluidState(this.blockPosition().below());
+                if (!fluidState.is(FluidTags.WATER) && !fluidState.is(FluidTags.LAVA) && y < 0.0)
+                    this.fallDistance -= (double) ((float) y);
             }
         }
-    }
-
-    @Override
-    public boolean isOnFire() {
-        return false;
     }
 }

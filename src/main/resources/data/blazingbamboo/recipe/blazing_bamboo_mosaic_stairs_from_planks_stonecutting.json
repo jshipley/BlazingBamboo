@@ -1,9 +1,7 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "blazingbamboo:blazing_bamboo_planks"
-  },
+  "category": "building",
+  "ingredient": "blazingbamboo:blazing_bamboo_planks",
   "result": {
     "id": "blazingbamboo:blazing_bamboo_mosaic_stairs"
   }

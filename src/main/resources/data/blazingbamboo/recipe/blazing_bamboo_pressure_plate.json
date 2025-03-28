@@ -3,9 +3,9 @@
   "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
-    "#": {
-      "item": "blazingbamboo:blazing_bamboo_planks"
-    }
+    "#": [
+      "blazingbamboo:blazing_bamboo_planks"
+    ]
   },
   "pattern": [
     "##"

@@ -11,6 +11,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BambooSaplingBlock;
 import net.minecraft.world.level.block.BambooStalkBlock;
@@ -41,13 +42,13 @@ public class BlazingBambooSapling extends BambooSaplingBlock {
         }
     }
 
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+    public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess pScheduledTickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource pRandom) {
         if (!pState.canSurvive(pLevel, pCurrentPos))
-            return Blocks.AIR.defaultBlockState();
+           return Blocks.AIR.defaultBlockState();
         if (pFacing == Direction.UP && pFacingState.is(BBBlocks.BLAZING_BAMBOO))
-            pLevel.setBlock(pCurrentPos, BBBlocks.BLAZING_BAMBOO.defaultBlockState(), 2);
-        return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
-    }
+            return BBBlocks.BLAZING_BAMBOO.defaultBlockState();
+        return super.updateShape(pState, pLevel, pScheduledTickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, pRandom);
+     }
 
     @NotNull
     public ItemStack getCloneItemStack(BlockGetter pLevel, BlockPos pPos, BlockState pState) {

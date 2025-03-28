@@ -2,7 +2,7 @@
 ![Logo](https://i.imgur.com/r6zh7zW.png)
 
 
-# Blazing Bamboo
+# Blazing Bamboo Continued
 
 Blazing bamboo is a fiery bamboo species endemic to the crimson forests of the Nether, but adapts readily to a variety of stone and dry soils across all dimensions. Approach it with caution: the living plants glow with heat and deal fire damage to creatures that get too close. It quickly dies in the rain or near water, and dead bamboo plants drop gunpowder when broken.
 
@@ -12,9 +12,13 @@ Blazing bamboo is a fiery bamboo species endemic to the crimson forests of the N
 * An expanded set of decorative blocks
 * All blocks are fire-proof, lava-proof, and ghast-proof!
 * All items are fire-resistant
+
 ## Mod Information
 
 Author: [@PaddedShaman](https://github.com/PaddedShaman) a.k.a. "Shaman"
+Maintainer: [@jshipley](https://github.com/jshipley)
+
+Blazing Bamboo Continued is updated for Minecraft 1.21.1 and 1.21.5. This "continued" mod will be removed if the original Blazing Bamboo is updated.
 
 ### Dependencies
 
@@ -22,16 +26,13 @@ The Fabric version of this mod requires Fabric API.
 
 ### Minecraft version support
 
-* Support for 1.21 is planned
-* Support for other 1.20 versions may be considered based on interest
-* Backports to 1.19 may be considered based on interest, but would not include the rafts and hanging signs
-* Backports to versions before 1.19 will not be considered at this time
+* Minecraft 1.21.1, 1.21.5
+* Continued support for 1.21.1 and latest 1.21.x is intended
 
 ### Mod loader support
 
-* Fabric is planned to be supported indefinitely
-* Forge is planned up to and including Minecraft version 1.21
-* NeoForge is planned to gain support beginning in 1.21 and indefinitely thereafter
+* Fabric
+* NeoForge
 
 ### License and permissions
 

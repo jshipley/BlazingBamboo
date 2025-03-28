@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "item": "blazingbamboo:stripped_blazing_bamboo_bundle"
-    }
+    "blazingbamboo:stripped_blazing_bamboo_bundle"
   ],
   "result": {
     "count": 2,

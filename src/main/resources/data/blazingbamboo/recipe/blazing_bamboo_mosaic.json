@@ -1,10 +1,10 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "building",
   "key": {
-    "#": {
-      "item": "blazingbamboo:blazing_bamboo_slab"
-    }
+    "#": [
+      "blazingbamboo:blazing_bamboo_slab"
+    ]
   },
   "pattern": [
     "#",

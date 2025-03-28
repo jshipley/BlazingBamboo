@@ -9,8 +9,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BambooStalkBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -70,14 +70,14 @@ public class BlazingBambooBlock extends BambooStalkBlock {
         super.stepOn(pLevel, pPos, pState, pEntity);
     }
 
-    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+    public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess pScheduledTickAccess, BlockPos pPos, Direction pDirection, BlockPos pNeighborPos, BlockState pNeighborState, RandomSource pRandom) {
         if (!pState.canSurvive(pLevel, pPos))
-            pLevel.scheduleTick(pPos, this, 1);
+            pScheduledTickAccess.scheduleTick(pPos, this, 1);
         if (pDirection == Direction.UP && pNeighborState.is(BBBlocks.BLAZING_BAMBOO)
                 && (Integer) pNeighborState.getValue((Property) AGE)
                 > ((Integer)pState.getValue((Property)AGE)).intValue())
-            pLevel.setBlock(pPos, pState.cycle((Property)AGE), 2);
-        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
+            return pState.cycle((Property)AGE);
+        return super.updateShape(pState, pLevel, pScheduledTickAccess, pPos, pDirection, pNeighborPos, pNeighborState, pRandom);
     }
 
     private boolean isRainingOnThis(ServerLevel pLevel, BlockPos pPos) {

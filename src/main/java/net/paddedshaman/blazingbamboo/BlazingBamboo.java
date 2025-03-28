@@ -3,7 +3,7 @@ package net.paddedshaman.blazingbamboo;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -31,12 +31,14 @@ public class BlazingBamboo implements ModInitializer {
 		BBBlockEntities.registerBlockEntities();
 		BBEntities.registerEntities();
 
-		FuelRegistry.INSTANCE.add(BBItems.BLAZING_BAMBOO_ITEM, 800);
-		FuelRegistry.INSTANCE.add(BBBlocks.BLAZING_BAMBOO_BUNDLE, 8000);
+		FuelRegistryEvents.BUILD.register((builder, context) -> {
+			builder.add(BBItems.BLAZING_BAMBOO_ITEM, 800);
+			builder.add(BBBlocks.BLAZING_BAMBOO_BUNDLE, 8000);
 
-		// Because of Minecraft's 'planks' and 'wooden_slabs' tags, these two items inherit a burn time that needs to be nullified manually.
-		FuelRegistry.INSTANCE.add(BBBlocks.BLAZING_BAMBOO_PLANKS, 0);
-		FuelRegistry.INSTANCE.add(BBBlocks.BLAZING_BAMBOO_SLAB, 0);
+			// Because of Minecraft's 'planks' and 'wooden_slabs' tags, these two items inherit a burn time that needs to be nullified manually.
+			builder.add(BBBlocks.BLAZING_BAMBOO_PLANKS, 0);
+			builder.add(BBBlocks.BLAZING_BAMBOO_SLAB, 0);
+		});
 
 		StrippableBlockRegistry.register(BBBlocks.BLAZING_BAMBOO_BUNDLE, BBBlocks.STRIPPED_BLAZING_BAMBOO_BUNDLE);
 

@@ -1,10 +1,9 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "blazingbamboo:blazing_bamboo_bundle"
-  },
+  "category": "building",
+  "ingredient": "blazingbamboo:blazing_bamboo_bundle",
   "result": {
-    "id": "blazingbamboo:blazing_bamboo_mosaic_stairs"
+    "id": "blazingbamboo:blazing_bamboo_mosaic_stairs",
+    "count": 2
   }
 }

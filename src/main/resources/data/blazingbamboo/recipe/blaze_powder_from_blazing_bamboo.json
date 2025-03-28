@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
-    {
-      "item": "blazingbamboo:blazing_bamboo_item"
-    }
+    "blazingbamboo:blazing_bamboo_item"
   ],
   "result": {
     "id": "minecraft:blaze_powder"

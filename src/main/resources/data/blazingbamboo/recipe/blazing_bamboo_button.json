@@ -3,9 +3,7 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-    {
-      "item": "blazingbamboo:blazing_bamboo_planks"
-    }
+    "blazingbamboo:blazing_bamboo_planks"
   ],
   "result": {
     "id": "blazingbamboo:blazing_bamboo_button"

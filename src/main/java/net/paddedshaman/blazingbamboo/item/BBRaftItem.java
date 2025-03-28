@@ -1,86 +1,98 @@
 package net.paddedshaman.blazingbamboo.item;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.AbstractBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.ClipContext.Fluid;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
-import net.paddedshaman.blazingbamboo.entity.BBChestRaftEntity;
-import net.paddedshaman.blazingbamboo.entity.BBRaftEntity;
 
+import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
+
+import org.jetbrains.annotations.Nullable;
 
 public class BBRaftItem extends Item {
-    private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
-    private final BBRaftEntity.Type type;
-    private final boolean hasChest;
+    private final EntityType<? extends AbstractBoat> entityType;
 
-    public BBRaftItem(boolean pHasChest, BBRaftEntity.Type pType, Item.Properties pProperties) {
+    public BBRaftItem(EntityType<? extends AbstractBoat> pType, Item.Properties pProperties) {
         super(pProperties);
-        this.hasChest = pHasChest;
-        this.type = pType;
+        this.entityType = pType;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        HitResult hitresult = getPlayerPOVHitResult(pLevel, pPlayer, ClipContext.Fluid.ANY);
-        if (hitresult.getType() == HitResult.Type.MISS) {
-            return InteractionResultHolder.pass(itemstack);
-        } else {
-            Vec3 vec3 = pPlayer.getViewVector(1.0F);
-            List<Entity> list = pLevel.getEntities(pPlayer, pPlayer.getBoundingBox().expandTowards(vec3.scale(5.0D)).inflate(1.0D), ENTITY_PREDICATE);
-            if (!list.isEmpty()) {
-                Vec3 vec31 = pPlayer.getEyePosition();
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+      ItemStack itemStack = player.getItemInHand(hand);
+      HitResult hitResult = getPlayerPOVHitResult(level, player, Fluid.ANY);
+      if (hitResult.getType() == Type.MISS) {
+         return InteractionResult.PASS;
+      } else {
+         Vec3 vec3 = player.getViewVector(1.0F);
+         double d = 5.0;
+         List<Entity> list = level.getEntities(player, player.getBoundingBox().expandTowards(vec3.scale(5.0)).inflate(1.0), EntitySelector.CAN_BE_PICKED);
+         if (!list.isEmpty()) {
+            Vec3 vec32 = player.getEyePosition();
+            Iterator var11 = list.iterator();
 
-                for(Entity entity : list) {
-                    AABB aabb = entity.getBoundingBox().inflate((double)entity.getPickRadius());
-                    if (aabb.contains(vec31)) {
-                        return InteractionResultHolder.pass(itemstack);
-                    }
-                }
+            while(var11.hasNext()) {
+               Entity entity = (Entity)var11.next();
+               AABB aABB = entity.getBoundingBox().inflate((double)entity.getPickRadius());
+               if (aABB.contains(vec32)) {
+                  return InteractionResult.PASS;
+               }
             }
+         }
 
-            if (hitresult.getType() == HitResult.Type.BLOCK) {
-                Boat boat = this.getBoat(pLevel, hitresult);
-                if(boat instanceof BBChestRaftEntity chestBoat) {
-                    chestBoat.setVariant(this.type);
-                } else if(boat instanceof BBRaftEntity) {
-                    ((BBRaftEntity)boat).setVariant(this.type);
-                }
-                boat.setYRot(pPlayer.getYRot());
-                if (!pLevel.noCollision(boat, boat.getBoundingBox())) {
-                    return InteractionResultHolder.fail(itemstack);
-                } else {
-                    if (!pLevel.isClientSide) {
-                        pLevel.addFreshEntity(boat);
-                        pLevel.gameEvent(pPlayer, GameEvent.ENTITY_PLACE, hitresult.getLocation());
-                        if (!pPlayer.getAbilities().instabuild) {
-                            itemstack.shrink(1);
-                        }
-                    }
-
-                    pPlayer.awardStat(Stats.ITEM_USED.get(this));
-                    return InteractionResultHolder.sidedSuccess(itemstack, pLevel.isClientSide());
-                }
+         if (hitResult.getType() == Type.BLOCK) {
+            AbstractBoat abstractBoat = this.getBoat(level, hitResult, itemStack, player);
+            if (abstractBoat == null) {
+               return InteractionResult.FAIL;
             } else {
-                return InteractionResultHolder.pass(itemstack);
-            }
-        }
-    }
+               abstractBoat.setYRot(player.getYRot());
+               if (!level.noCollision(abstractBoat, abstractBoat.getBoundingBox())) {
+                  return InteractionResult.FAIL;
+               } else {
+                  if (!level.isClientSide) {
+                     level.addFreshEntity(abstractBoat);
+                     level.gameEvent(player, GameEvent.ENTITY_PLACE, hitResult.getLocation());
+                     itemStack.consume(1, player);
+                  }
 
-    private Boat getBoat(Level p_220017_, HitResult p_220018_) {
-        return (Boat)(this.hasChest ? new BBChestRaftEntity(p_220017_, p_220018_.getLocation().x, p_220018_.getLocation().y, p_220018_.getLocation().z) :
-                new BBRaftEntity(p_220017_, p_220018_.getLocation().x, p_220018_.getLocation().y, p_220018_.getLocation().z));
-    }
+                  player.awardStat(Stats.ITEM_USED.get(this));
+                  return InteractionResult.SUCCESS;
+               }
+            }
+         } else {
+            return InteractionResult.PASS;
+         }
+      }
+   }
+
+   @Nullable
+   private AbstractBoat getBoat(Level level, HitResult hitResult, ItemStack stack, Player player) {
+      AbstractBoat abstractBoat = (AbstractBoat)this.entityType.create(level, EntitySpawnReason.SPAWN_ITEM_USE);
+      if (abstractBoat != null) {
+         Vec3 vec3 = hitResult.getLocation();
+         abstractBoat.setInitialPos(vec3.x, vec3.y, vec3.z);
+         if (level instanceof ServerLevel) {
+            ServerLevel serverLevel = (ServerLevel)level;
+            EntityType.createDefaultStackConfig(serverLevel, stack, player).accept(abstractBoat);
+         }
+      }
+
+      return abstractBoat;
+   }
 }

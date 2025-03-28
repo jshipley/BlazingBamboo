@@ -3,7 +3,6 @@ package net.paddedshaman.blazingbamboo;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.minecraft.client.model.ChestRaftModel;
 import net.minecraft.client.model.RaftModel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -31,7 +30,7 @@ public class BlazingBambooClient implements ClientModInitializer {
 
         EntityRenderers.register(BBEntities.BB_RAFT, context -> new BBRaftRenderer(context, false));
         EntityRenderers.register(BBEntities.BB_CHEST_RAFT, context -> new BBRaftRenderer(context, true));
-        EntityModelLayerRegistry.registerModelLayer(BBRaftRenderer.BLAZING_BAMBOO_RAFT_LAYER, RaftModel::createBodyModel);
-        EntityModelLayerRegistry.registerModelLayer(BBRaftRenderer.BLAZING_BAMBOO_CHEST_RAFT_LAYER, ChestRaftModel::createBodyModel);
+        EntityModelLayerRegistry.registerModelLayer(BBRaftRenderer.BLAZING_BAMBOO_RAFT_LAYER, RaftModel::createRaftModel);
+        EntityModelLayerRegistry.registerModelLayer(BBRaftRenderer.BLAZING_BAMBOO_CHEST_RAFT_LAYER, RaftModel::createChestRaftModel);
     }
 }

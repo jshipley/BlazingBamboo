@@ -1,14 +1,15 @@
 {
   "type": "crafting_shaped",
+  "category": "building",
+  "group": "planks",
   "pattern": [
     "B",
     "B"
   ],
   "key": {
-    "B": {
-      "item": "blazingbamboo:blazing_bamboo_bundle",
-      "data": 0
-    }
+    "B": [
+      "blazingbamboo:blazing_bamboo_bundle"
+    ]
   },
   "result": {
     "id": "blazingbamboo:blazing_bamboo_planks",

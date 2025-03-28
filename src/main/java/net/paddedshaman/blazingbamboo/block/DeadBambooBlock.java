@@ -6,8 +6,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 
@@ -22,14 +22,14 @@ public class DeadBambooBlock extends BlazingBambooBlock {
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {}
 
     @Override
-    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+    public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess pScheduledTickAccess, BlockPos pPos, Direction pDirection, BlockPos pNeighborPos, BlockState pNeighborState, RandomSource pRandom) {
         if (!pState.canSurvive(pLevel, pPos))
-            pLevel.scheduleTick(pPos, this, 1);
+            pScheduledTickAccess.scheduleTick(pPos, this, 1);
         if (pDirection == Direction.UP && pNeighborState.is(BBBlocks.DEAD_BAMBOO)
                 && (Integer) pNeighborState.getValue((Property) AGE)
                 > ((Integer)pState.getValue((Property)AGE)).intValue())
-            pLevel.setBlock(pPos, pState.cycle((Property)AGE), 2);
-        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
+            return pState.cycle((Property)AGE);
+        return super.updateShape(pState, pLevel, pScheduledTickAccess, pPos, pDirection, pNeighborPos, pNeighborState, pRandom);
     }
 
     @Override

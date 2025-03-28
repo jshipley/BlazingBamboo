@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "blazingbamboo:blazing_stone"
-    }
+    "#": [
+      "blazingbamboo:blazing_stone"
+    ]
   },
   "pattern": [
     "#  ",
