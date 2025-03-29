@@ -2,7 +2,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.26-beta'
+    id 'net.neoforged.moddev' version '2.0.80'
 }
 
 version = mod_version
