@@ -2,7 +2,8 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.80'
+    id 'net.neoforged.moddev' version '2.0.82'
+    id 'me.modmuss50.mod-publish-plugin' version '0.8.4'
 }
 
 version = mod_version
@@ -210,5 +211,32 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
+    }
+}
+
+publishMods {
+    file = jar.archiveFile
+    changelog = file("CHANGELOG.md").getText()
+    type = STABLE
+    modLoaders.add("neoforge")
+
+    modrinth {
+        projectId = "bZDWL6yP"
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+
+        minecraftVersions.add("1.21.1")
+
+        announcementTitle = "Neoforge version on Modrinth"
+    }
+
+    curseforge {
+        projectId = "1230377"
+        projectSlug = "blazing-bamboo-continued"
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        
+        minecraftVersions.add("1.21.1")
+        javaVersions.add(JavaVersion.VERSION_21)
+
+        announcementTitle = "Neoforge version on Curseforge"
     }
 }

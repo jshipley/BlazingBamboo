@@ -1,6 +1,5 @@
 package net.paddedshaman.blazingbamboo.worldgen;
 
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BambooLeaves;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.paddedshaman.blazingbamboo.item.BBItems;
 import net.paddedshaman.blazingbamboo.util.BBDamageTypes;
@@ -115,6 +114,6 @@ public class BlazingBambooSapling extends BambooSaplingBlock {
 
     protected void growBamboo(Level pLevel, BlockPos pPos) {
         pLevel.setBlock(pPos.above(),
-                BBBlocks.BLAZING_BAMBOO.get().defaultBlockState().setValue((Property) BambooStalkBlock.LEAVES, (Comparable) BambooLeaves.SMALL), 3);
+                BBBlocks.BLAZING_BAMBOO.get().defaultBlockState().setValue(BambooStalkBlock.LEAVES, BambooLeaves.SMALL), 3);
     }
 }

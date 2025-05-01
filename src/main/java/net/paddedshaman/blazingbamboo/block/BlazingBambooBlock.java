@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BambooLeaves;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FluidState;
 import net.paddedshaman.blazingbamboo.util.BBDamageTypes;
@@ -43,12 +42,12 @@ public class BlazingBambooBlock extends BambooStalkBlock {
             if (blockstate.is(BBBlocks.BLAZING_BAMBOO_SAPLING.get()))
                 return defaultBlockState().setValue(AGE, 0);
             if (blockstate.is(BBBlocks.BLAZING_BAMBOO.get())) {
-                int i = ((Integer) blockstate.getValue((Property) AGE) > 0) ? 1 : 0;
+                int i = ((Integer) blockstate.getValue(AGE) > 0) ? 1 : 0;
                 return defaultBlockState().setValue(AGE, i);
             }
             BlockState blockstate1 = pContext.getLevel().getBlockState(pContext.getClickedPos().above());
             return blockstate1.is(BBBlocks.BLAZING_BAMBOO.get())
-                    ? defaultBlockState().setValue((Property)AGE, blockstate1.getValue((Property)AGE))
+                    ? defaultBlockState().setValue(AGE, blockstate1.getValue(AGE))
                     : BBBlocks.BLAZING_BAMBOO_SAPLING.get().defaultBlockState();
         }
         return null;
@@ -74,9 +73,9 @@ public class BlazingBambooBlock extends BambooStalkBlock {
         if (!pState.canSurvive(pLevel, pPos))
             pLevel.scheduleTick(pPos, this, 1);
         if (pDirection == Direction.UP && pNeighborState.is(BBBlocks.BLAZING_BAMBOO.get())
-                && (Integer) pNeighborState.getValue((Property) AGE)
-                > ((Integer)pState.getValue((Property)AGE)).intValue())
-            pLevel.setBlock(pPos, pState.cycle((Property)AGE), 2);
+                && (Integer) pNeighborState.getValue(AGE)
+                > ((Integer)pState.getValue(AGE)).intValue())
+            pLevel.setBlock(pPos, pState.cycle(AGE), 2);
         return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
     }
 
@@ -147,13 +146,13 @@ public class BlazingBambooBlock extends BambooStalkBlock {
             BlockPos currentPos = baseBlockPos.above(i + 1);
             BlockState currentState = pLevel.getBlockState(currentPos);
             BambooLeaves deadLeaves = BambooLeaves.NONE;
-            int age = (Integer)currentState.getValue((Property) AGE);
-            if (currentState.is(BBBlocks.BLAZING_BAMBOO.get()) && currentState.getValue((Property) LEAVES) == BambooLeaves.LARGE) {
+            int age = (Integer)currentState.getValue(AGE);
+            if (currentState.is(BBBlocks.BLAZING_BAMBOO.get()) && currentState.getValue(LEAVES) == BambooLeaves.LARGE) {
                 deadLeaves = BambooLeaves.LARGE;
-            } else if (currentState.is(BBBlocks.BLAZING_BAMBOO.get()) && currentState.getValue((Property) LEAVES) == BambooLeaves.SMALL) {
+            } else if (currentState.is(BBBlocks.BLAZING_BAMBOO.get()) && currentState.getValue(LEAVES) == BambooLeaves.SMALL) {
                 deadLeaves = BambooLeaves.SMALL;
             }
-            pLevel.setBlock(currentPos, deadStalk.setValue(AGE, age).setValue((Property) LEAVES, (Comparable)deadLeaves).setValue(STAGE, 1), 3);
+            pLevel.setBlock(currentPos, deadStalk.setValue(AGE, age).setValue(LEAVES, deadLeaves).setValue(STAGE, 1), 3);
         }
     }
 
@@ -163,22 +162,22 @@ public class BlazingBambooBlock extends BambooStalkBlock {
         BlockState blockstate1 = pLevel.getBlockState(blockpos);
         BambooLeaves bambooleaves = BambooLeaves.NONE;
         if (pAge >= 1) {
-            if (blockstate.is(BBBlocks.BLAZING_BAMBOO.get()) && blockstate.getValue((Property) LEAVES) != BambooLeaves.NONE) {
-                if (blockstate.is(BBBlocks.BLAZING_BAMBOO.get()) && blockstate.getValue((Property) LEAVES) != BambooLeaves.NONE) {
+            if (blockstate.is(BBBlocks.BLAZING_BAMBOO.get()) && blockstate.getValue(LEAVES) != BambooLeaves.NONE) {
+                if (blockstate.is(BBBlocks.BLAZING_BAMBOO.get()) && blockstate.getValue(LEAVES) != BambooLeaves.NONE) {
                     bambooleaves = BambooLeaves.LARGE;
                     if (blockstate1.is(BBBlocks.BLAZING_BAMBOO.get())) {
-                        pLevel.setBlock(pPos.below(), blockstate.setValue((Property) LEAVES, (Comparable) BambooLeaves.SMALL), 3);
-                        pLevel.setBlock(blockpos, blockstate1.setValue((Property) LEAVES, (Comparable) BambooLeaves.NONE), 3);
+                        pLevel.setBlock(pPos.below(), blockstate.setValue(LEAVES, BambooLeaves.SMALL), 3);
+                        pLevel.setBlock(blockpos, blockstate1.setValue(LEAVES, BambooLeaves.NONE), 3);
                     }
                 }
             } else {
                 bambooleaves = BambooLeaves.SMALL;
             }
         }
-        int i = ((Integer) pState.getValue((Property) AGE) != 1 && !blockstate1.is(BBBlocks.BLAZING_BAMBOO.get())) ? 0 : 1;
+        int i = ((Integer) pState.getValue(AGE) != 1 && !blockstate1.is(BBBlocks.BLAZING_BAMBOO.get())) ? 0 : 1;
         int j = ((pAge < (MAX_HEIGHT - HEIGHT_VARIANCE - 1) || pRandom.nextFloat() >= 0.25F) && pAge != (MAX_HEIGHT - 1)) ? 0 : 1;
         pLevel.setBlock(pPos.above(), defaultBlockState().setValue(AGE, i)
-                .setValue((Property)LEAVES, (Comparable)bambooleaves).setValue(STAGE, j), 3);
+                .setValue(LEAVES, bambooleaves).setValue(STAGE, j), 3);
     }
 
     @Override

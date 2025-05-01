@@ -9,7 +9,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
 
 public class DeadBambooBlock extends BlazingBambooBlock {
     public DeadBambooBlock(Properties p_48874_) {
@@ -26,9 +25,9 @@ public class DeadBambooBlock extends BlazingBambooBlock {
         if (!pState.canSurvive(pLevel, pPos))
             pLevel.scheduleTick(pPos, this, 1);
         if (pDirection == Direction.UP && pNeighborState.is(BBBlocks.DEAD_BAMBOO.get())
-                && (Integer) pNeighborState.getValue((Property) AGE)
-                > ((Integer)pState.getValue((Property)AGE)).intValue())
-            pLevel.setBlock(pPos, pState.cycle((Property)AGE), 2);
+                && (Integer) pNeighborState.getValue(AGE)
+                > ((Integer)pState.getValue(AGE)).intValue())
+            pLevel.setBlock(pPos, pState.cycle(AGE), 2);
         return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
     }
 
