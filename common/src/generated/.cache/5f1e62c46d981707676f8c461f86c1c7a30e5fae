@@ -1,0 +1,19 @@
+// 1.21.5	-999999999-01-01T00:00:00	Blazing Bamboo Continued/Tags for minecraft:item
+cc7e4fed6376b1ea48afd89e8a496b1fb7c3f898 data/blazingbamboo/tags/item/blazing_bamboo_blocks.json
+b4d4212af5f44b9c0c64b7b80f3592feaa86236f data/minecraft/tags/item/boats.json
+eded392e5ce90e9c0097b20c7c83286de7bd6587 data/minecraft/tags/item/chest_boats.json
+fd1529a5a6cc365a6080c547feb6dbc6b9fe9b56 data/minecraft/tags/item/doors.json
+1f7e8801be7c7c10a9013d7d1bc0c432b665c529 data/minecraft/tags/item/fence_gates.json
+4cea502b73a28de0aee14532231069bd63688a63 data/minecraft/tags/item/fences.json
+c1bba7c39929aa9b0cc114085f71b529fa775eaf data/minecraft/tags/item/hanging_signs.json
+6a7fe2e2afd46765c64e58dadb274d3a8d9ad07a data/minecraft/tags/item/planks.json
+1c16d6aaa04a525903a380a98f2474c8ed14fbcc data/minecraft/tags/item/signs.json
+3c7520410b66921dfd4f3edbae251e0a01defeb7 data/minecraft/tags/item/slabs.json
+e5b683bdd0bb48e3bc6632fe85e86ca8ffbe2af4 data/minecraft/tags/item/stairs.json
+b2cad84827f44df8b5692feaf6f3843dc5f2d7a7 data/minecraft/tags/item/stone_buttons.json
+1f36d7897cac67037753ad5843605e7316460202 data/minecraft/tags/item/trapdoors.json
+e8df6eedc53743a3f1f0a7c0a5f89ea04370a956 data/minecraft/tags/item/walls.json
+5e4d2f0fc7ea43a913cc221b3faf287ae22752a4 data/minecraft/tags/item/wooden_buttons.json
+8f2d40e575003443c2b36726f362b920531d2752 data/minecraft/tags/item/wooden_slabs.json
+3d29c8485656f8487df37f31338488f93789b7b3 data/minecraft/tags/item/wooden_stairs.json
+1f36d7897cac67037753ad5843605e7316460202 data/minecraft/tags/item/wooden_trapdoors.json

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stripped_blazing_bamboo_bundle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "blazingbamboo:stripped_blazing_bamboo_bundle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "blazingbamboo:blazing_bamboo_raft"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_stripped_blazing_bamboo_bundle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "blazingbamboo:blazing_bamboo_raft"
+    ]
+  }
+}

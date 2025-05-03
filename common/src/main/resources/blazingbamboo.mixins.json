@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "net.paddedshaman.blazingbamboo.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"AbstractBoatMixin",
+		"EntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

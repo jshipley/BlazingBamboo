@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blazing_bamboo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "blazingbamboo:blazing_bamboo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:blaze_powder_from_blazing_bamboo"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blazing_bamboo"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:blaze_powder_from_blazing_bamboo"
+    ]
+  }
+}

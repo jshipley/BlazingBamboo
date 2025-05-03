@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blazing_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "blazingbamboo:blazing_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "blazingbamboo:blazing_stone_pressure_plate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blazing_stone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "blazingbamboo:blazing_stone_pressure_plate"
+    ]
+  }
+}

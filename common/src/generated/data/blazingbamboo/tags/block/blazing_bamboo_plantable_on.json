@@ -1,0 +1,21 @@
+{
+  "values": [
+    "blazingbamboo:blazing_bamboo",
+    "blazingbamboo:blazing_bamboo_sapling",
+    "blazingbamboo:blazing_stone",
+    "minecraft:calcite",
+    "minecraft:bedrock",
+    "#minecraft:base_stone_nether",
+    "#minecraft:soul_fire_base_blocks",
+    "#minecraft:nylium",
+    "#minecraft:base_stone_overworld",
+    "#minecraft:stone_bricks",
+    "#minecraft:sand",
+    "#minecraft:terracotta",
+    "#c:cobblestones",
+    "#c:end_stones",
+    "#c:sandstone/blocks",
+    "#c:sandstone/red_blocks",
+    "#c:gravels"
+  ]
+}

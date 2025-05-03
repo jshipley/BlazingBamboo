@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "key": {
+    "B": "blazingbamboo:stripped_blazing_bamboo_bundle"
+  },
+  "pattern": [
+    "B B",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "blazingbamboo:blazing_bamboo_raft"
+  }
+}

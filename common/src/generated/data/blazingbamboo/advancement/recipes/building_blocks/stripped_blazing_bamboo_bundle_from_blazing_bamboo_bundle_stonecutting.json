@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blazing_bamboo_bundle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "blazingbamboo:blazing_bamboo_bundle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:stripped_blazing_bamboo_bundle_from_blazing_bamboo_bundle_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blazing_bamboo_bundle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:stripped_blazing_bamboo_bundle_from_blazing_bamboo_bundle_stonecutting"
+    ]
+  }
+}

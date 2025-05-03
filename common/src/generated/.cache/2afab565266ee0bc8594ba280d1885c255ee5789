@@ -1,0 +1,27 @@
+// 1.21.5	-999999999-01-01T00:00:00	Blazing Bamboo Continued/Tags for minecraft:block
+ef1a462652e994c729657c8e903a47774dd49a76 data/blazingbamboo/tags/block/blazing_bamboo_plantable_on.json
+c1bba7c39929aa9b0cc114085f71b529fa775eaf data/minecraft/tags/block/ceiling_hanging_signs.json
+fd1529a5a6cc365a6080c547feb6dbc6b9fe9b56 data/minecraft/tags/block/doors.json
+1f7e8801be7c7c10a9013d7d1bc0c432b665c529 data/minecraft/tags/block/fence_gates.json
+3c360b51c5b57006b0cb8301d249b53b2972c320 data/minecraft/tags/block/flower_pots.json
+fa827679c7ba86da4d606fba42241379142f35f6 data/minecraft/tags/block/hoglin_repellents.json
+368f520076422caf2f8d2dc679703dacd8fc6604 data/minecraft/tags/block/infiniburn_overworld.json
+72bd7b0c4b6e0c7c59621062aaf9fe4b06a457e1 data/minecraft/tags/block/mineable/axe.json
+42eb4a7b38ef36a8b3e8dfd7d8b3724fd30bb6c2 data/minecraft/tags/block/mineable/pickaxe.json
+6a7fe2e2afd46765c64e58dadb274d3a8d9ad07a data/minecraft/tags/block/planks.json
+a50599ca11ad8bfd08e102330de37773d8bd77e0 data/minecraft/tags/block/pressure_plates.json
+2c70009f0f52803dbe2ceb7125b6b60cfd052087 data/minecraft/tags/block/slabs.json
+e5b683bdd0bb48e3bc6632fe85e86ca8ffbe2af4 data/minecraft/tags/block/stairs.json
+1c16d6aaa04a525903a380a98f2474c8ed14fbcc data/minecraft/tags/block/standing_signs.json
+b2cad84827f44df8b5692feaf6f3843dc5f2d7a7 data/minecraft/tags/block/stone_buttons.json
+2111c49e72f93ca31c23229f73c39ffb56ce6ba4 data/minecraft/tags/block/stone_pressure_plates.json
+fa827679c7ba86da4d606fba42241379142f35f6 data/minecraft/tags/block/sword_instantly_mines.json
+1f36d7897cac67037753ad5843605e7316460202 data/minecraft/tags/block/trapdoors.json
+5df96ad47c151418eafa66ad8257555bfcca5959 data/minecraft/tags/block/wall_hanging_signs.json
+ebe73a0af30274b08ab0313e202e3f8bf3ba2d3f data/minecraft/tags/block/wall_signs.json
+e8df6eedc53743a3f1f0a7c0a5f89ea04370a956 data/minecraft/tags/block/walls.json
+5e4d2f0fc7ea43a913cc221b3faf287ae22752a4 data/minecraft/tags/block/wooden_buttons.json
+4cea502b73a28de0aee14532231069bd63688a63 data/minecraft/tags/block/wooden_fences.json
+2851aa466b298459adab26f4152c4f9d5d3802c9 data/minecraft/tags/block/wooden_pressure_plates.json
+8f2d40e575003443c2b36726f362b920531d2752 data/minecraft/tags/block/wooden_slabs.json
+3d29c8485656f8487df37f31338488f93789b7b3 data/minecraft/tags/block/wooden_stairs.json

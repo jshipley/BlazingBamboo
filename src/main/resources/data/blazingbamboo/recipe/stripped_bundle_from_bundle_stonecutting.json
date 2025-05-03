@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "blazingbamboo:blazing_bamboo_bundle",
-  "result": {
-    "id": "blazingbamboo:stripped_blazing_bamboo_bundle"
-  }
-}

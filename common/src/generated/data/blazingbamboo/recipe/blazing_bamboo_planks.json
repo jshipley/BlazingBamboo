@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#blazingbamboo:blazing_bamboo_blocks"
+  ],
+  "result": {
+    "count": 2,
+    "id": "blazingbamboo:blazing_bamboo_planks"
+  }
+}

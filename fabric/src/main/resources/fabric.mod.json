@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "blazingbamboo",
+  "version": "${version}",
+  "name": "Blazing Bamboo Continued",
+  "description": "A fiery bamboo species native to the crimson forests of the Nether!",
+  "authors": [
+    "PaddedShaman",
+    "jship"
+  ],
+  "contact": {
+    "homepage": "https://amertune.neocities.org/",
+    "sources": "https://github.com/jshipley/BlazingBamboo"
+  },
+  "license": "MIT",
+  "icon": "assets/blazingbamboo/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.paddedshaman.blazingbamboo.fabric.BlazingBambooFabric"
+    ],
+    "client": [
+      "net.paddedshaman.blazingbamboo.client.fabric.BlazingBambooFabricClient"
+    ],
+    "fabric-datagen": [
+      "net.paddedshaman.blazingbamboo.datagen.fabric.BBDataGenerator"
+    ],
+    "modmenu": [
+      "net.paddedshaman.blazingbamboo.config.fabric.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "blazingbamboo.mixins.json",
+    "blazingbamboo_fabric.mixins.json"
+  ],
+  "accessWidener": "blazingbamboo.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.5",
+    "java": ">=21",
+    "architectury": ">=16.0.3",
+    "yet_another_config_lib_v3": ">=3.6.6",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "copper_pipe": "*"
+  }
+}
