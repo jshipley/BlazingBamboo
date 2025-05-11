@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.paddedshaman.blazingbamboo.block.BBBlocks;
 import net.paddedshaman.blazingbamboo.block.entity.BBBlockEntities;
+import net.paddedshaman.blazingbamboo.config.BBConfig;
 import net.paddedshaman.blazingbamboo.entity.BBEntities;
 import net.paddedshaman.blazingbamboo.item.BBCreativeModeTabs;
 import net.paddedshaman.blazingbamboo.item.BBItems;
@@ -26,6 +27,8 @@ public class BlazingBamboo {
 	public static final Supplier<RegistrarManager> REGISTRY_MANAGER = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
 
 	public static void init() {
+		BBConfig.HANDLER.load();
+		
 		BBCreativeModeTabs.registerCreativeModeTabs();
 		BBItems.registerItems();
 		BBBlocks.registerBlocks();

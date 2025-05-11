@@ -1,5 +1,7 @@
 package net.paddedshaman.blazingbamboo.config;
 
+import com.google.gson.GsonBuilder;
+import dev.architectury.platform.Platform;
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionDescription;
@@ -7,47 +9,57 @@ import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.api.controller.FloatSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
+import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
+import dev.isxander.yacl3.config.v2.api.SerialEntry;
+import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.paddedshaman.blazingbamboo.BlazingBamboo;
 
+@Accessors(fluent=true)
 public class BBConfig {
-    public static final BBConfig INSTANCE = new BBConfig();
+    public static ConfigClassHandler<BBConfig> HANDLER = ConfigClassHandler.createBuilder(BBConfig.class)
+        .id(BlazingBamboo.id("blazing_bamboo_continued_config"))
+        .serializer(config -> GsonConfigSerializerBuilder.create(config)
+            .setPath(Platform.getConfigFolder().resolve("blazing_bamboo_continued.json5"))
+            .appendGsonBuilder(GsonBuilder::setPrettyPrinting)
+            .setJson5(true)
+            .build())
+        .build();
 
-    private int bambooMaxHeight = 13;
-    private int bambooHeightVariance = 5;
-    private int bambooExtinguishChance = 20;
-    private boolean sneakSafely = true;
-    private int raftSpeedMultiplier = 70;
+    public static final int defaultBambooMaxHeight = 13;
+    @Getter @Setter @SerialEntry
+    public static int bambooMaxHeight = defaultBambooMaxHeight;
 
-    public static int bambooMaxHeight() {
-        return INSTANCE.bambooMaxHeight;
-    }
+    public static final int defaultBambooHeightVariance = 5;
+    @Getter @Setter @SerialEntry
+    public static int bambooHeightVariance = defaultBambooHeightVariance;
 
-    public static int bambooHeightVariance() {
-        return INSTANCE.bambooHeightVariance;
-    }
+    public static final int defaultBambooExtinguishChance = 20;
+    @Getter @Setter @SerialEntry
+    public static int bambooExtinguishChance = defaultBambooExtinguishChance;
 
-    public static float bambooExtinguishChance() {
-        return INSTANCE.bambooExtinguishChance / 100.0f;
-    }
+    public static final boolean defaultSneakSafely = true;
+    @Getter @Setter @SerialEntry
+    public static boolean sneakSafely = defaultSneakSafely;
 
-    public static boolean sneakSafely() {
-        return INSTANCE.sneakSafely;
-    }
-
-    public static float raftSpeedMultiplier() {
-        return INSTANCE.raftSpeedMultiplier / 100.0f;
-    }
+    public static final int defaultRaftSpeedMultiplier = 70;
+    @Getter @Setter @SerialEntry
+    public static int raftSpeedMultiplier = defaultRaftSpeedMultiplier;
 
     public static Screen createConfig(Screen parentScreen) {
         return YetAnotherConfigLib.createBuilder()
+            .save(() -> HANDLER.save())
             .title(Component.literal("Blazing Bamboo Continued"))
             .category(ConfigCategory.createBuilder()
                 .name(Component.literal("Blazing Bamboo Continued"))
                 .option(Option.<Integer>createBuilder()
                     .name(Component.translatable("config.blazingbamboo.bamboo_max_height"))
-                    .description(OptionDescription.of(Component.translatable("config.blazingbamboo.bamboo_max_height")))
-                    .binding(13, () -> INSTANCE.bambooMaxHeight, newVal -> INSTANCE.bambooMaxHeight = newVal)
+                    .description(OptionDescription.of(Component.translatable("config.blazingbamboo.bamboo_max_height.desc")))
+                    .binding(defaultBambooMaxHeight, BBConfig::bambooMaxHeight, BBConfig::bambooMaxHeight)
                     .controller(opt -> IntegerSliderControllerBuilder.create(opt)
                         .range(0, 64)
                         .step(1)
@@ -56,7 +68,7 @@ public class BBConfig {
                 .option(Option.<Integer>createBuilder()
                     .name(Component.translatable("config.blazingbamboo.height_variance"))
                     .description(OptionDescription.of(Component.translatable("config.blazingbamboo.height_variance.desc")))
-                    .binding(5, () -> INSTANCE.bambooHeightVariance, newVal -> INSTANCE.bambooHeightVariance = newVal)
+                    .binding(defaultBambooHeightVariance, BBConfig::bambooHeightVariance, BBConfig::bambooHeightVariance)
                     .controller(opt -> IntegerSliderControllerBuilder.create(opt)
                         .range(0, 64)
                         .step(1)
@@ -65,7 +77,7 @@ public class BBConfig {
                 .option(Option.<Integer>createBuilder()
                     .name(Component.translatable("config.blazingbamboo.bamboo_extinguish_chance"))
                     .description(OptionDescription.of(Component.translatable("config.blazingbamboo.bamboo_extinguish_chance.desc")))
-                    .binding(20, () -> INSTANCE.bambooExtinguishChance, newVal -> INSTANCE.bambooExtinguishChance = newVal)
+                    .binding(defaultBambooExtinguishChance, BBConfig::bambooExtinguishChance, BBConfig::bambooExtinguishChance)
                     .controller(opt -> IntegerSliderControllerBuilder.create(opt)
                         .range(0, 100)
                         .step(1)
@@ -74,7 +86,7 @@ public class BBConfig {
                 .option(Option.<Integer>createBuilder()
                     .name(Component.translatable("config.blazingbamboo.raft_speed"))
                     .description(OptionDescription.of(Component.translatable("config.blazingbamboo.raft_speed.desc")))
-                    .binding(70, () -> INSTANCE.raftSpeedMultiplier, newVal -> INSTANCE.raftSpeedMultiplier = newVal)
+                    .binding(defaultRaftSpeedMultiplier, BBConfig::raftSpeedMultiplier, BBConfig::raftSpeedMultiplier)
                     .controller(opt -> IntegerSliderControllerBuilder.create(opt)
                         .range(0, 100)
                         .step(1)
@@ -83,7 +95,7 @@ public class BBConfig {
                 .option(Option.<Boolean>createBuilder()
                     .name(Component.translatable("config.blazingbamboo.sneak_safely"))
                     .description(OptionDescription.of(Component.translatable("config.blazingbamboo.sneak_safely.desc")))
-                    .binding(true, () -> INSTANCE.sneakSafely, newVal -> INSTANCE.sneakSafely = newVal)
+                    .binding(defaultSneakSafely, BBConfig::sneakSafely, BBConfig::sneakSafely)
                     .controller(TickBoxControllerBuilder::create)
                     .build())
                 .build()
