@@ -146,7 +146,7 @@ public class BBRaftEntity extends Boat {
                 for(int i2 = i1; i2 < j1; ++i2) {
                     blockpos$mutableblockpos.set(k1, l1, i2);
                     FluidState fluidstate = this.level().getFluidState(blockpos$mutableblockpos);
-                    if (fluidstate.is(FluidTags.LAVA) || fluidstate.is(FluidTags.WATER)) {
+                    if (fluidstate.is(FluidTags.WATER)) {
                         float f = (float)l1 + fluidstate.getHeight(this.level(), blockpos$mutableblockpos);
                         this.waterLevel = Math.max((double)f, this.waterLevel);
                         flag |= aabb.minY < (double)f;

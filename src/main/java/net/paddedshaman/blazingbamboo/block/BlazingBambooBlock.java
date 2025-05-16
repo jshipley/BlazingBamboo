@@ -1,8 +1,12 @@
 package net.paddedshaman.blazingbamboo.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,15 +18,13 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BambooStalkBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BambooLeaves;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FluidState;
 import net.paddedshaman.blazingbamboo.util.BBDamageTypes;
 import net.paddedshaman.blazingbamboo.util.BBTags;
-import org.jetbrains.annotations.Nullable;
 
 public class BlazingBambooBlock extends BambooStalkBlock {
     public BlazingBambooBlock(BlockBehaviour.Properties p_48874_) {
@@ -57,16 +59,19 @@ public class BlazingBambooBlock extends BambooStalkBlock {
         return pLevel.getBlockState(pPos.below()).is(BBTags.Blocks.BLAZING_BAMBOO_PLANTABLE_ON) || pLevel.getBlockState(pPos.below()).is(BBBlocks.DEAD_BAMBOO.get());
     }
 
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pEntity instanceof LivingEntity) {
-            pEntity.hurt(pLevel.damageSources().source(BBDamageTypes.BLAZING_HOT), 1.0F);
+    public static void blazeHurtEntity(Level level, Entity entity, float damage) {
+        if (!entity.isSteppingCarefully() && entity instanceof LivingEntity) {
+            entity.hurt(level.damageSources().source(BBDamageTypes.BLAZING_HOT), damage);
         }
     }
-    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        if (pEntity instanceof LivingEntity) {
-            pEntity.hurt(pLevel.damageSources().source(BBDamageTypes.BLAZING_HOT), 1.0F);
-        }
-        super.stepOn(pLevel, pPos, pState, pEntity);
+
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        blazeHurtEntity(level, entity, 1.0f);
+    }
+    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+        blazeHurtEntity(level, entity, 1.0f);
+
+        super.stepOn(level, pos, state, entity);
     }
 
     public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
@@ -79,63 +84,35 @@ public class BlazingBambooBlock extends BambooStalkBlock {
         return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
     }
 
-    private boolean isRainingOnThis(ServerLevel pLevel, BlockPos pPos) {
-        Biome biome = pLevel.getBiome(pPos).value();
-        if (!biome.hasPrecipitation()) {
-            return false;
-        } else if (pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pPos).getY() > pPos.getY()) {
-            return false;
-        } else {
-            return pLevel.getRainLevel(1.0F) > 0.2;
-        }
+    public static boolean isHydrated(ServerLevel level, BlockPos blockPos) {
+        return BlockPos
+            .findClosestMatch(blockPos, 1, 1, (pos) -> {
+                BlockState searchBlockState = level.getBlockState(pos);
+                return searchBlockState.getFluidState().is(FluidTags.WATER)
+                    || (searchBlockState.is(Blocks.FARMLAND) && searchBlockState.getValue(FarmBlock.MOISTURE) > 0);
+            })
+            .isPresent();
     }
 
-    private static final int[][] nearbyPositions = {
-            // x,z coordinates of adjacent block positions for more optimized searching
-            {1, 1},
-            {-1, -1},
-            {-1, 1},
-            {1, -1},
-            {0, 1},
-            {0, -1},
-            {-1, 0},
-            {1, 0}
-    };
-    private boolean isHydrated(ServerLevel pLevel, BlockPos pPos) {
-        BlockPos.MutableBlockPos mutablePos = pPos.mutable();
-        BlockState mutableState, mutableStateAbove;
-        for(int[] row : nearbyPositions) {
-            mutablePos.setWithOffset(pPos, row[0], 0, row[1]);
-            mutableState = pLevel.getBlockState(mutablePos);
-            mutableStateAbove = pLevel.getBlockState(mutablePos.above());
-            if (mutableStateAbove.is(Blocks.WATER) || mutableState.is(Blocks.WATER)) { return true; }
-            if (mutableStateAbove.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                if (mutableStateAbove.getValue(BlockStateProperties.WATERLOGGED)) { return true; }
-            }
-            if (mutableState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                if (mutableState.getValue(BlockStateProperties.WATERLOGGED)) { return true; }
-            }
-        }
-        return false;
-    }
-    private boolean isFrozen(ServerLevel pLevel, BlockPos pPos) {
-        BlockState iceCheck = pLevel.getBlockState(pPos.below());
-        return iceCheck.is(Blocks.ICE) || iceCheck.is(Blocks.PACKED_ICE) || iceCheck.is(Blocks.BLUE_ICE);
+    public static boolean isFrozen(ServerLevel level, BlockPos blockPos) {
+        return level.getBlockState(blockPos.below()).is(BlockTags.ICE);
     }
 
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        int i = this.getHeightBelowUpToMax(pLevel, pPos) + 1;
-        int j = this.getHeightAboveUpToMax(pLevel, pPos) + 1;
-        BlockPos baseBlockPos = pPos.below(i);
-        BlockPos headBlockPos = pPos.above(j);
+    @Override
+    public void handlePrecipitation(BlockState blockState, Level level, BlockPos blockPos, Biome.Precipitation precipitation) {
+        if (level instanceof ServerLevel serverLevel && serverLevel.getRandom().nextFloat() <= 0.2f)
+            this.extinguishBamboo(serverLevel, blockPos.below(this.getHeightBelowUpToMax(serverLevel, blockPos) + 1));
+    }
 
-        if (isRainingOnThis(pLevel, headBlockPos) || isHydrated(pLevel, baseBlockPos)) {
-            this.extinguishBamboo(pLevel, baseBlockPos);
+    public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource random) {
+        int height = this.getHeightBelowUpToMax(level, blockPos);
+        BlockPos baseBlockPos = blockPos.below(height);
 
-        } else if (i < MAX_HEIGHT && !isFrozen(pLevel, baseBlockPos) && pState.getValue(STAGE) == 0
-                && pLevel.isEmptyBlock(pPos.above()) && pRandom.nextInt(3) == 0) {
-            this.growBamboo(pState, pLevel, pPos, pRandom, i);
-
+        if (isHydrated(level, baseBlockPos)) {
+            this.extinguishBamboo(level, baseBlockPos);
+        } else if (height < MAX_HEIGHT && !isFrozen(level, baseBlockPos) && blockState.getValue(STAGE) == 0
+                && level.isEmptyBlock(blockPos.above()) && random.nextInt(3) == 0) {
+            this.growBamboo(blockState, level, blockPos, random, height);
         }
     }
 

@@ -1,11 +1,14 @@
 package net.paddedshaman.blazingbamboo.block;
 
+import static net.paddedshaman.blazingbamboo.block.BlazingBambooBlock.blazeHurtEntity;
+
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,12 +21,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BambooLeaves;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.paddedshaman.blazingbamboo.item.BBItems;
-import net.paddedshaman.blazingbamboo.util.BBDamageTypes;
 import net.paddedshaman.blazingbamboo.util.BBTags;
-import org.jetbrains.annotations.NotNull;
 
 public class BlazingBambooSapling extends BambooSaplingBlock {
     public BlazingBambooSapling(BlockBehaviour.Properties properties) {
@@ -34,10 +33,8 @@ public class BlazingBambooSapling extends BambooSaplingBlock {
         return pLevel.getBlockState(pPos.below()).is(BBTags.Blocks.BLAZING_BAMBOO_PLANTABLE_ON);
     }
 
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pEntity instanceof LivingEntity) {
-            pEntity.hurt(pLevel.damageSources().source(BBDamageTypes.BLAZING_HOT), 1.0F);
-        }
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        blazeHurtEntity(level, entity, 1.0f);
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
@@ -53,58 +50,20 @@ public class BlazingBambooSapling extends BambooSaplingBlock {
         return new ItemStack(BBItems.BLAZING_BAMBOO_ITEM.get());
     }
 
-    private boolean isRainingOnThis(ServerLevel pLevel, BlockPos pPos) {
-        Biome biome = pLevel.getBiome(pPos).value();
-        if (!biome.hasPrecipitation()) {
-            return false;
-        } else if (pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pPos).getY() > pPos.getY()) {
-            return false;
-        } else {
-            return pLevel.getRainLevel(1.0F) > 0.2;
-        }
+    @Override
+    public void handlePrecipitation(BlockState blockState, Level level, BlockPos blockPos, Biome.Precipitation precipitation) {
+        if (level instanceof ServerLevel serverLevel && serverLevel.getRandom().nextFloat() < 0.2f)
+            this.extinguishBamboo(serverLevel, blockPos.below());
     }
 
-    private static final int[][] nearbyPositions = {
-            {1, 1},
-            {-1, -1},
-            {-1, 1},
-            {1, -1},
-            {0, 1},
-            {0, -1},
-            {-1, 0},
-            {1, 0}
-    };
-    private boolean isHydrated(ServerLevel pLevel, BlockPos pPos) {
-        BlockPos.MutableBlockPos mutablePos = pPos.mutable();
-        BlockState mutableState, mutableStateAbove;
-        for(int[] row : nearbyPositions) {
-            mutablePos.setWithOffset(pPos, row[0], 0, row[1]);
-            mutableState = pLevel.getBlockState(mutablePos);
-            mutableStateAbove = pLevel.getBlockState(mutablePos.above());
-            if (mutableState.is(Blocks.WATER) || mutableStateAbove.is(Blocks.WATER)) { return true; }
-            if (mutableState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                if (mutableState.getValue(BlockStateProperties.WATERLOGGED)) { return true; }
-            }
-            if (mutableStateAbove.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                if (mutableStateAbove.getValue(BlockStateProperties.WATERLOGGED)) { return true; }
-            }
-        }
-        return false;
-    }
-    private boolean isFrozen(ServerLevel pLevel, BlockPos pPos) {
-        BlockState iceCheck = pLevel.getBlockState(pPos.below());
-        return iceCheck.is(Blocks.ICE) || iceCheck.is(Blocks.PACKED_ICE) || iceCheck.is(Blocks.BLUE_ICE);
-    }
+    public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource random) {
+        BlockPos baseBlockPos = blockPos.below();
 
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        BlockPos baseBlockPos = pPos.below();
+        if (BlazingBambooBlock.isHydrated(level, baseBlockPos)) {
+            this.extinguishBamboo(level, baseBlockPos);
 
-        if (isRainingOnThis(pLevel, pPos.above()) || isHydrated(pLevel, baseBlockPos)) {
-            this.extinguishBamboo(pLevel, baseBlockPos);
-
-        } else if (!isFrozen(pLevel, baseBlockPos) && pLevel.isEmptyBlock(pPos.above()) && pRandom.nextInt(3) == 0) {
-            this.growBamboo(pLevel, pPos);
-
+        } else if (!BlazingBambooBlock.isFrozen(level, baseBlockPos) && level.isEmptyBlock(blockPos.above()) && random.nextInt(3) == 0) {
+            this.growBamboo(level, blockPos);
         }
     }
 
