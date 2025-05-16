@@ -54,56 +54,13 @@ public class BlazingBambooSapling extends BambooSaplingBlock {
         return new ItemStack(BBItems.BLAZING_BAMBOO_ITEM);
     }
 
-    private boolean isRainingOnThis(ServerLevel pLevel, BlockPos pPos) {
-        Biome biome = pLevel.getBiome(pPos).value();
-        if (!biome.hasPrecipitation()) {
-            return false;
-        } else if (pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pPos).getY() > pPos.getY()) {
-            return false;
-        } else {
-            return pLevel.getRainLevel(1.0F) > 0.2;
-        }
-    }
-
-    private static final int[][] nearbyPositions = {
-            {1, 1},
-            {-1, -1},
-            {-1, 1},
-            {1, -1},
-            {0, 1},
-            {0, -1},
-            {-1, 0},
-            {1, 0}
-    };
-    private boolean isHydrated(ServerLevel pLevel, BlockPos pPos) {
-        BlockPos.MutableBlockPos mutablePos = pPos.mutable();
-        BlockState mutableState, mutableStateAbove;
-        for(int[] row : nearbyPositions) {
-            mutablePos.setWithOffset(pPos, row[0], 0, row[1]);
-            mutableState = pLevel.getBlockState(mutablePos);
-            mutableStateAbove = pLevel.getBlockState(mutablePos.above());
-            if (mutableState.is(Blocks.WATER) || mutableStateAbove.is(Blocks.WATER)) { return true; }
-            if (mutableState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                if (mutableState.getValue(BlockStateProperties.WATERLOGGED)) { return true; }
-            }
-            if (mutableStateAbove.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                if (mutableStateAbove.getValue(BlockStateProperties.WATERLOGGED)) { return true; }
-            }
-        }
-        return false;
-    }
-    private boolean isFrozen(ServerLevel pLevel, BlockPos pPos) {
-        BlockState iceCheck = pLevel.getBlockState(pPos.below());
-        return iceCheck.is(Blocks.ICE) || iceCheck.is(Blocks.PACKED_ICE) || iceCheck.is(Blocks.BLUE_ICE);
-    }
-
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         BlockPos baseBlockPos = pPos.below();
 
-        if (isRainingOnThis(pLevel, pPos.above()) || isHydrated(pLevel, baseBlockPos)) {
+        if (BlazingBambooBlock.isHydrated(pLevel, baseBlockPos)) {
             this.extinguishBamboo(pLevel, baseBlockPos);
 
-        } else if (!isFrozen(pLevel, baseBlockPos) && pLevel.isEmptyBlock(pPos.above()) && pRandom.nextInt(3) == 0) {
+        } else if (!BlazingBambooBlock.isFrozen(pLevel, baseBlockPos) && pLevel.isEmptyBlock(pPos.above()) && pRandom.nextInt(3) == 0) {
             this.growBamboo(pLevel, pPos);
 
         }
@@ -115,6 +72,6 @@ public class BlazingBambooSapling extends BambooSaplingBlock {
 
     protected void growBamboo(Level pLevel, BlockPos pPos) {
         pLevel.setBlock(pPos.above(),
-                BBBlocks.BLAZING_BAMBOO.defaultBlockState().setValue((Property) BambooStalkBlock.LEAVES, (Comparable) BambooLeaves.SMALL), 3);
+                BBBlocks.BLAZING_BAMBOO.defaultBlockState().setValue(BambooStalkBlock.LEAVES, BambooLeaves.SMALL), 3);
     }
 }
