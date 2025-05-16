@@ -218,10 +218,10 @@ public class BBChestRaftEntity extends ChestBoat {
         } else {
             if (this.status == Status.IN_WATER) {
                 d2 = (this.waterLevel - this.getY()) / (double)this.getBbHeight();
-                this.invFriction = 0.9F;
+                this.invFriction = 0.7F;
             } else if (this.status == Status.UNDER_FLOWING_WATER) {
                 d1 = -7.0E-4D;
-                this.invFriction = 0.9F;
+                this.invFriction = 0.7F;
             } else if (this.status == Status.UNDER_WATER) {
                 d2 = 0.01F;
                 this.invFriction = 0.45F;
