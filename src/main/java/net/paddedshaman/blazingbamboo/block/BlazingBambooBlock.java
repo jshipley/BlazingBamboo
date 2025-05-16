@@ -58,16 +58,20 @@ public class BlazingBambooBlock extends BambooStalkBlock {
         return pLevel.getBlockState(pPos.below()).is(BBTags.Blocks.BLAZING_BAMBOO_PLANTABLE_ON) || pLevel.getBlockState(pPos.below()).is(BBBlocks.DEAD_BAMBOO);
     }
 
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pEntity instanceof LivingEntity) {
-            pEntity.hurt(pLevel.damageSources().source(BBDamageTypes.BLAZING_HOT), 1.0F);
+    public static void blazeHurtEntity(Level level, Entity entity, float damage) {
+        if (!entity.isSteppingCarefully() && entity instanceof LivingEntity) {
+            entity.hurt(level.damageSources().source(BBDamageTypes.BLAZING_HOT), damage);
         }
     }
-    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        if (pEntity instanceof LivingEntity) {
-            pEntity.hurt(pLevel.damageSources().source(BBDamageTypes.BLAZING_HOT), 1.0F);
-        }
-        super.stepOn(pLevel, pPos, pState, pEntity);
+
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        blazeHurtEntity(level, entity, 1.0f);
+    }
+
+    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+        blazeHurtEntity(level, entity, 1.0f);
+
+        super.stepOn(level, pos, state, entity);
     }
 
     public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {

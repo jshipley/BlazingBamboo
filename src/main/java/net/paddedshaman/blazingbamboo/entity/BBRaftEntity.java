@@ -1,13 +1,17 @@
 package net.paddedshaman.blazingbamboo.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -39,6 +43,28 @@ public class BBRaftEntity extends Boat {
         return BBItems.BLAZING_BAMBOO_RAFT;
     }
 
+    // Die in water
+    @Override
+    public void tick() {
+        super.tick();
+
+        Status status = getStatus();
+        if ((status == Status.IN_WATER || status == Status.UNDER_WATER || status == Status.UNDER_FLOWING_WATER) && checkInWaterActual()) {
+            this.playSound(SoundEvents.FIRE_EXTINGUISH);
+            hurt(damageSources().dryOut(), 10f);
+        }
+    }
+
+    @Override
+    public void destroy(DamageSource source) {
+        if (source.is(DamageTypes.DRY_OUT)) {
+            this.destroy(Items.GUNPOWDER);
+        } else {
+            this.destroy(this.getDropItem());
+        }
+    }
+
+
     // Attempt to make it work on lava below this line ========================================================================================================
 
     @Override
@@ -63,7 +89,7 @@ public class BBRaftEntity extends Boat {
                 for(int z = minZ; z < maxZ; ++z) {
                     blockPos.set(x, y, z);
                     FluidState fluidstate = this.level().getFluidState(blockPos);
-                    if (fluidstate.is(FluidTags.LAVA)) {
+                    if (fluidstate.is(FluidTags.LAVA) || fluidstate.is(FluidTags.WATER)) {
                         f = Math.max(f, fluidstate.getHeight(this.level(), blockPos));
                     }
                 }
@@ -93,7 +119,35 @@ public class BBRaftEntity extends Boat {
                 for(int i2 = i1; i2 < j1; ++i2) {
                     blockpos$mutableblockpos.set(k1, l1, i2);
                     FluidState fluidstate = this.level().getFluidState(blockpos$mutableblockpos);
-                    if (fluidstate.is(FluidTags.LAVA)) {
+                    if (fluidstate.is(FluidTags.LAVA) || fluidstate.is(FluidTags.WATER)) {
+                        float f = (float)l1 + fluidstate.getHeight(this.level(), blockpos$mutableblockpos);
+                        this.waterLevel = Math.max((double)f, this.waterLevel);
+                        flag |= aabb.minY < (double)f;
+                    }
+                }
+            }
+        }
+        return flag;
+    }
+
+    public boolean checkInWaterActual() {
+        AABB aabb = this.getBoundingBox();
+        int i = Mth.floor(aabb.minX);
+        int j = Mth.ceil(aabb.maxX);
+        int k = Mth.floor(aabb.minY);
+        int l = Mth.ceil(aabb.minY + 0.001D);
+        int i1 = Mth.floor(aabb.minZ);
+        int j1 = Mth.ceil(aabb.maxZ);
+        boolean flag = false;
+        this.waterLevel = -Double.MAX_VALUE;
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+
+        for(int k1 = i; k1 < j; ++k1) {
+            for(int l1 = k; l1 < l; ++l1) {
+                for(int i2 = i1; i2 < j1; ++i2) {
+                    blockpos$mutableblockpos.set(k1, l1, i2);
+                    FluidState fluidstate = this.level().getFluidState(blockpos$mutableblockpos);
+                    if (fluidstate.is(FluidTags.WATER)) {
                         float f = (float)l1 + fluidstate.getHeight(this.level(), blockpos$mutableblockpos);
                         this.waterLevel = Math.max((double)f, this.waterLevel);
                         flag |= aabb.minY < (double)f;
@@ -122,7 +176,7 @@ public class BBRaftEntity extends Boat {
                 for(int i2 = i1; i2 < j1; ++i2) {
                     blockpos$mutableblockpos.set(k1, l1, i2);
                     FluidState fluidstate = this.level().getFluidState(blockpos$mutableblockpos);
-                    if (fluidstate.is(FluidTags.LAVA) && d0 < (double)((float)blockpos$mutableblockpos.getY() + fluidstate.getHeight(this.level(), blockpos$mutableblockpos))) {
+                    if ((fluidstate.is(FluidTags.LAVA) || fluidstate.is(FluidTags.WATER)) && d0 < (double)((float)blockpos$mutableblockpos.getY() + fluidstate.getHeight(this.level(), blockpos$mutableblockpos))) {
                         if (!fluidstate.isSource()) {
                             return Status.UNDER_FLOWING_WATER;
                         }
