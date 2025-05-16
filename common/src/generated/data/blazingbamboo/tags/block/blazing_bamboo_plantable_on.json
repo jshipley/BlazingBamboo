@@ -16,6 +16,7 @@
     "#c:end_stones",
     "#c:sandstone/blocks",
     "#c:sandstone/red_blocks",
-    "#c:gravels"
+    "#c:gravels",
+    "#c:obsidians"
   ]
 }

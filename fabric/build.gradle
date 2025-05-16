@@ -40,7 +40,7 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
     // optional dependency
-    modImplementation "maven.modrinth:simple-copper-pipes:loJugPYH" // 2.0.6-1.21.5
+    modCompileOnly "maven.modrinth:simple-copper-pipes:loJugPYH" // 2.0.6-1.21.5
 }
 
 loom {
@@ -77,7 +77,7 @@ remapJar {
 publishMods {
     file = remapJar.archiveFile
     changelog = file("../CHANGELOG.md").getText()
-    type = BETA
+    type = STABLE
     modLoaders.add("fabric")
 
     modrinth {

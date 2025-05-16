@@ -35,7 +35,8 @@ public class BBBlockTagProvider extends FabricTagProvider<Block> {
             .forceAddTag(ConventionalBlockTags.END_STONES)
             .forceAddTag(ConventionalBlockTags.SANDSTONE_BLOCKS)
             .forceAddTag(ConventionalBlockTags.RED_SANDSTONE_BLOCKS)
-            .forceAddTag(ConventionalBlockTags.GRAVELS);
+            .forceAddTag(ConventionalBlockTags.GRAVELS)
+            .forceAddTag(ConventionalBlockTags.OBSIDIANS);
         
         getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS).add(BBBlocks.BLAZING_BAMBOO_HANGING_SIGN.get());
         getOrCreateTagBuilder(BlockTags.DOORS).add(BBBlocks.BLAZING_BAMBOO_DOOR.get());

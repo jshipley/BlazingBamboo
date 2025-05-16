@@ -1,1 +1,1 @@
-* Now actually saving/loading config
+* Blazing bamboo now plantable on obsidian
