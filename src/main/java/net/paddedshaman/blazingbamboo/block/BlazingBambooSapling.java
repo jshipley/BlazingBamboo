@@ -52,7 +52,7 @@ public class BlazingBambooSapling extends BambooSaplingBlock {
 
     @Override
     public void handlePrecipitation(BlockState blockState, Level level, BlockPos blockPos, Biome.Precipitation precipitation) {
-        if (level instanceof ServerLevel serverLevel && serverLevel.getRandom().nextFloat() < 0.2f)
+        if (level instanceof ServerLevel serverLevel && serverLevel.getRandom().nextFloat() < 0.8f)
             this.extinguishBamboo(serverLevel, blockPos.below());
     }
 
