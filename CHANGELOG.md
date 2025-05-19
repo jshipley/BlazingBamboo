@@ -1,1 +1,1 @@
-* Blazing bamboo now plantable on obsidian
+* Increased default chance of bamboo being extinguished by rain

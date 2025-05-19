@@ -38,7 +38,7 @@ public class BBConfig {
     @Getter @Setter @SerialEntry
     public static int bambooHeightVariance = defaultBambooHeightVariance;
 
-    public static final int defaultBambooExtinguishChance = 20;
+    public static final int defaultBambooExtinguishChance = 80;
     @Getter @Setter @SerialEntry
     public static int bambooExtinguishChance = defaultBambooExtinguishChance;
 
