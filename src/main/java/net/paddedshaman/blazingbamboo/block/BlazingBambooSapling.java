@@ -54,6 +54,12 @@ public class BlazingBambooSapling extends BambooSaplingBlock {
         return new ItemStack(BBItems.BLAZING_BAMBOO_ITEM);
     }
 
+    @Override
+    public void handlePrecipitation(BlockState blockState, Level level, BlockPos blockPos, Biome.Precipitation precipitation) {
+        if (level instanceof ServerLevel serverLevel && serverLevel.getRandom().nextFloat() < 0.8f)
+            this.extinguishBamboo(serverLevel, blockPos.below());
+    }
+
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         BlockPos baseBlockPos = pPos.below();
 

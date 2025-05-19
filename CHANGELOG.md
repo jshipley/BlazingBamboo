@@ -1,5 +1,2 @@
-Backporting changes from 1.21.5
-
-* Blazing bamboo can now be planted on obsidian
-* Blazing bamboo raft is not able to survive in water
-* Player will not take damage from blazing bamboo while sneaking
+* (Fabric 1.21.1) - fixed bamboo not being extinguished by rain
+* Increased chance of bamboo being extinguished by rain

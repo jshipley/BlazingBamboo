@@ -15,6 +15,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BambooStalkBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FarmBlock;
@@ -97,6 +98,12 @@ public class BlazingBambooBlock extends BambooStalkBlock {
 
     public static boolean isFrozen(ServerLevel level, BlockPos blockPos) {
         return level.getBlockState(blockPos.below()).is(BlockTags.ICE);
+    }
+
+    @Override
+    public void handlePrecipitation(BlockState blockState, Level level, BlockPos blockPos, Biome.Precipitation precipitation) {
+        if (level instanceof ServerLevel serverLevel && serverLevel.getRandom().nextFloat() <= 0.8f)
+            this.extinguishBamboo(serverLevel, blockPos.below(this.getHeightBelowUpToMax(serverLevel, blockPos) + 1));
     }
 
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
