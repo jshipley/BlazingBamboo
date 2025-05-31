@@ -1,1 +1,1 @@
-* Increased default chance of bamboo being extinguished by rain
+* Fixed boat mixin to only affect blazing rafts, and scale of friction multiplier

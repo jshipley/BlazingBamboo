@@ -26,6 +26,4 @@ public class AbstractBoatMixin {
     public boolean isLavaOrWater(FluidState fluidState, TagKey<Fluid> tag) {
         return fluidState.is(tag) || (isBlazingRaft() && fluidState.is(FluidTags.LAVA));
     }
-    
-    
 }
